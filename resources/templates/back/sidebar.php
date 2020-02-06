@@ -1,13 +1,14 @@
 
-   
+     <a href="" class="hamburger"><i class="fas fa-bars fa-2x"></i></a>
+     <a href="#" id="sidebarClose"><i class="fas fa-times fa-2x" ></i></a>
         <div class="Admin__sidebar">
-            <a href="" class="hamburger"><i class="fas fa-bars fa-2x"></i></a>
-            <h2>Admin</h2>
+           
+            <header>Admin Panel</header>
             <ul>
-                <li><a href=""><i class="fas fa-home mr-2"></i>Home</a></li>
-                <li><a href=""><i class="fas fa-car mr-2"></i>Cars</a></li>
-                <li><a href=""><i class="fas fa-users mr-2"></i>Users</a></li>
-                <li><a href=""><i class="fas fa-ad mr-2"></i>Ads</a></li>
+                <li><a href=""><i class="fas fa-home "></i>Home</a></li>
+                <li><a href=""><i class="fas fa-car "></i>Cars</a></li>
+                <li><a href=""><i class="fas fa-users "></i>Users<i class="fas fa-chevron-down ml-5 mt-1"></i></a></li>
+                <li><a href=""><i class="fas fa-ad "></i>Ads</a></li>
                 
             </ul>
         </div>

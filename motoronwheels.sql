@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2020 at 08:16 AM
+-- Generation Time: Feb 06, 2020 at 04:37 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `cmart`
+-- Database: `motoronwheels`
 --
 
 -- --------------------------------------------------------
@@ -179,7 +179,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`) VALUES
 (9, 'ashish kumar', 'ashish13101988@gmail.com', '$2y$10$N0lM4rcaoDCs0ciE1e.3Wuaq0pVrd0dLJNTQssxEDmUCB5rapqD0u', ''),
-(10, 'praveen kumar', 'praveen.143r@gmail.com', '$2y$10$86811iBRFx2Q4FItbb2GvOE8tTFatXX9jdnaEAhfMVCeKhDiksBmy', '');
+(10, 'praveen kumar', 'praveen.143r@gmail.com', '$2y$10$86811iBRFx2Q4FItbb2GvOE8tTFatXX9jdnaEAhfMVCeKhDiksBmy', ''),
+(11, 'john deo', 'john@demo.com', '$2y$10$i39FuTPQyajHYDPdHY1GyeIljVhRYxOC59qhYgacUlg3iJH8HBPLK', ''),
+(12, 'janny deo', 'janny@demomail.com', '$2y$10$BDZKEG2/4DUlrIbwtpn1Be1FIVaW9WABhoUgF2MIjnIPzbHaueBzi', '');
 
 -- --------------------------------------------------------
 
@@ -286,7 +288,7 @@ ALTER TABLE `enquiry`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `wishlist`
