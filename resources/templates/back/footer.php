@@ -6,17 +6,8 @@
 
         <script src="../bootstrap/js/jquery.js"></script>
         <script src="../bootstrap/js/bootstrap.bundle.js"></script>
-        <script src="../bootstrap/js/main.js"></script>
-        <script src="../bootstrap/js/jqueryFx.js"></script>
+        <script src="../bootstrap/js/admin.js"></script>
+        <script src="../bootstrap/js/adminJq.js"></script>
 
-      <script>
-      
-        let sideBarClose = document.querySelector('#sidebarClose');
-
-                sideBarClose.addEventListener('click',function(){
-                alert('hello world');
-                });
-      </script>
-    
 </body>
 </html>

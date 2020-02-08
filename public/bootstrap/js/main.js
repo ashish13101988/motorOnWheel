@@ -1,8 +1,8 @@
 
 let carSearch = document.querySelector('#carSearch');
-let filterForm = document.querySelectorAll('.home-filter-div');
+let filterForm = document.querySelector('.home-filter-div');
 
-filterForm[0].addEventListener('click', e => {
+filterForm.addEventListener('click', e => {
        
     if (e.target.classList.contains('carSearchBtn')){
         let carSearchBtn = document.querySelectorAll('.carSearchBtn'); 

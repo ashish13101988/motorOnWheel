@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2020 at 04:37 PM
+-- Generation Time: Feb 08, 2020 at 07:25 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -45,7 +45,9 @@ INSERT INTO `adimg` (`imgId`, `user_id`, `ads_id`, `imgname`, `created_at`) VALU
 (2635, 9, 50, '5e37d5197e29f.jpg', '2020-02-03 08:08:57'),
 (2636, 9, 50, '5e37d5197ea0b.jpg', '2020-02-03 08:08:57'),
 (2637, 10, 51, '5e37f370063e7.jpg', '2020-02-03 10:18:24'),
-(2638, 10, 51, '5e37f37006b4b.jpg', '2020-02-03 10:18:24');
+(2638, 10, 51, '5e37f37006b4b.jpg', '2020-02-03 10:18:24'),
+(2639, 9, 52, '5e3d84a930d50.jpg', '2020-02-07 15:39:21'),
+(2640, 9, 52, '5e3d84a93144d.jpg', '2020-02-07 15:39:21');
 
 -- --------------------------------------------------------
 
@@ -85,7 +87,8 @@ CREATE TABLE `ads` (
 INSERT INTO `ads` (`id`, `user_id`, `status`, `cartype`, `carname`, `carmodel`, `bodytype`, `odometer`, `transmission`, `engine`, `price`, `year`, `cylinder`, `engineDes`, `fuelEconomy`, `turbo`, `power`, `tow`, `colour`, `seats`, `doors`, `created_at`) VALUES
 (49, 9, 'aprove', 'used', 'BMW', 'M3', 'Sedan', '10000', 'Manual', NULL, '9230', '2016', '8', 'petrol', '8', NULL, NULL, NULL, 'teal', '15', '2', '2020-02-03 18:42:03'),
 (50, 9, 'aprove', 'new', 'BMW', 'M2', 'Coupe', '8522', 'manual', NULL, '9999', '2018', '3', 'Turbo 3.2 Diesel', '11', NULL, NULL, NULL, 'red', '2', '2', '2020-02-04 19:41:54'),
-(51, 10, 'aprove', 'new', 'Mercedes-Benz', 'SLS-Class', 'Convertible', '1200', 'automatic', NULL, '90000', '2020', '6', 'Turbo 2.2 Petrol', '8', NULL, NULL, NULL, 'red', '2', '2', '2020-02-03 13:06:39');
+(51, 10, 'aprove', 'new', 'Mercedes-Benz', 'SLS-Class', 'Convertible', '1200', 'automatic', NULL, '90000', '2020', '6', 'Turbo 2.2 Petrol', '8', NULL, NULL, NULL, 'red', '2', '2', '2020-02-03 13:06:39'),
+(52, 9, 'pending', 'used', 'Hyundai', 'Accent', 'Sedan', '12', 'automatic', NULL, '9999', '2018', '4', 'turbo petrol', '12', NULL, NULL, NULL, 'indigo', '4', '4', '2020-02-07 15:39:21');
 
 -- --------------------------------------------------------
 
@@ -95,8 +98,54 @@ INSERT INTO `ads` (`id`, `user_id`, `status`, `cartype`, `carname`, `carmodel`, 
 
 CREATE TABLE `bodytype` (
   `id` int(11) NOT NULL,
-  `bodytype` varchar(50) NOT NULL
+  `bodytype` varchar(50) NOT NULL,
+  `bodyimg` varchar(100) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bodytype`
+--
+
+INSERT INTO `bodytype` (`id`, `bodytype`, `bodyimg`, `created_at`) VALUES
+(3, 'convertible', 'convertible.png', '2020-02-08 14:20:04'),
+(4, 'sedan', 'sedan.png', '2020-02-08 14:25:18'),
+(5, 'ute', 'ute.png', '2020-02-08 14:35:30'),
+(8, 'hatch', 'hatch.png', '2020-02-08 14:52:49'),
+(9, 'bus', 'bus.png', '2020-02-08 14:58:04'),
+(10, 'van', 'van.png', '2020-02-08 15:00:25'),
+(11, 'people mover', 'people mover.png', '2020-02-08 15:01:57'),
+(12, 'wagon', 'wagon.png', '2020-02-08 15:06:48'),
+(13, 'light truck', 'light truck.png', '2020-02-08 15:07:42'),
+(14, 'coupe', 'coupe.png', '2020-02-08 15:09:32'),
+(15, 'suv', 'suv.png', '2020-02-08 15:18:17'),
+(16, 'cab chassis', 'cab chassis.png', '2020-02-08 15:20:13');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carbrands`
+--
+
+CREATE TABLE `carbrands` (
+  `brand_id` int(11) NOT NULL,
+  `brandname` varchar(50) NOT NULL,
+  `logo` varchar(100) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `carbrands`
+--
+
+INSERT INTO `carbrands` (`brand_id`, `brandname`, `logo`, `created_at`) VALUES
+(3, ' audi', ' audi.png', '2020-02-08 11:16:05'),
+(4, 'Mercedes-Benz', 'mercedes-benz.png', '2020-02-08 11:18:49'),
+(5, 'Maserati', 'maserati.png', '2020-02-08 11:20:24'),
+(6, 'ferrari', 'ferrari.png', '2020-02-08 11:23:49'),
+(7, 'BMW', 'bmw.png', '2020-02-08 11:25:54'),
+(8, 'ford', 'ford.png', '2020-02-08 11:26:57'),
+(11, 'renault', 'renault.png', '2020-02-08 18:19:28');
 
 -- --------------------------------------------------------
 
@@ -227,6 +276,12 @@ ALTER TABLE `bodytype`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `carbrands`
+--
+ALTER TABLE `carbrands`
+  ADD PRIMARY KEY (`brand_id`);
+
+--
 -- Indexes for table `cars`
 --
 ALTER TABLE `cars`
@@ -258,19 +313,25 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `adimg`
 --
 ALTER TABLE `adimg`
-  MODIFY `imgId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2639;
+  MODIFY `imgId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2641;
 
 --
 -- AUTO_INCREMENT for table `ads`
 --
 ALTER TABLE `ads`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `bodytype`
 --
 ALTER TABLE `bodytype`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `carbrands`
+--
+ALTER TABLE `carbrands`
+  MODIFY `brand_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `cars`
