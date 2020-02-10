@@ -51,10 +51,21 @@ function escapeString($name){
    global $db;
    if(is_array($name)){
       foreach($name as $value){
-         $db->sqli_real_escape_string($value);
+         $db->real_escape_string($value);
       }
    }
 
+}
+
+function emptyFields($array){
+    global $db;
+   if(is_array($array)){
+      foreach($array as $value){
+        if(empty($value)){
+         return true;
+        }
+      }
+   }
 }
 
 
@@ -98,3 +109,4 @@ function escapeString($name){
                     endif;//ext checking if      
             endif; //empty if
 } */
+

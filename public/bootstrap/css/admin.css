@@ -1,5 +1,6 @@
 *{
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 
@@ -73,11 +74,11 @@
     border-bottom: 1px solid #000;
 
 }
-/* .Admin__sidebar ul a:hover{
-    background-color: var(--silver-fox--);
-    color: var(--deep-slate--);
+.Admin__sidebar ul .active{
+    background-color: var(--deep-matte-grey--);
+    color: var(--silver-fox--) !important;
 }
- */
+
 .Admin__sidebar ul li a:hover {
     background-color: var(--deep-matte-grey--);
     text-decoration: none;
@@ -120,4 +121,31 @@
     border-radius: 0 !important;
     border: 1px solid var(--silver-fox--) !important;
     color: var(--dark-slate--) !important;
+}
+
+.showLogo{
+    max-width: 60px;
+    height: auto;
+    background-color:#fff;
+    padding:2px;
+}
+.pagination a{
+ background-color: var(--deep-matte-grey--);
+ color: var(--silver-fox--);
+ border: 1px solid var(--deep-matte-grey--);
+}
+
+.pagination .active a{
+    background-color: var(--copper-color--) !important;
+    color: var(--dark-slate--) !important;
+    border: 1px solid var(--copper-color--) !important;
+}
+
+
+.pagination a:hover{
+    background-color: var(--dark-slate--);
+    color: var(--silver-fox--);
+    border: 1px solid var(--deep-matte-grey--);
+
+
 }

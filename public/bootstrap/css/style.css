@@ -23,6 +23,9 @@
 .text-dark{
     color:var(--dark-slate--) !important;
 }
+.gold_text{
+    --copper-color--: #feda60 !important;
+}
 .sideNav{
     background-color: blueviolet !important;
 }

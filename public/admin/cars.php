@@ -11,8 +11,9 @@
        
         <div class="conatiner">
             <div class="row">
+            <div class="delModelStatus col-md-12 text-center"></div>
                 <div class="col-md-6">
-                    <ul class="nav nav-tabs navList" id="myTab" role="tablist">
+                    <ul class="nav nav-tabs navList " id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Car Model</a>
                         </li>
@@ -57,15 +58,18 @@
 
 <div class="modal text-center" tabindex="-1" role="dialog" id="confirmModal">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      
-      <div class="modal-body ">
-        <h3 class="text-dark">Modal body text goes here.</h3>
-      </div>
-      <div class="modal-footer text-center">
-       
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
+
+    <form id="deletFormModal">
+        <div class="modal-content">
+            <div class="modal-body ">
+                <h3 class="text-dark">Modal body text goes here.</h3>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </form>
+
   </div>
 </div>

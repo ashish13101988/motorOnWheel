@@ -3,7 +3,7 @@
 
    //logo upload
 
-    if(isset($_POST['logoUpload'])):
+    if(isset($_POST['logoUpload']) && isset($_POST['carname'])):
         $file = $_FILES['logo'];
         $carname = $db->real_escape_string($_POST['carname']);
         if(empty($carname) || empty($file['name'])){
@@ -39,7 +39,7 @@
     endif;//isset if
        
                        
-    if(isset($_POST['bodytype'])){
+    if(isset($_POST['bodytype']) && isset($_POST['bodytypename'])){
         
         $file = $_FILES['bodyTypeImg'];
         
@@ -71,12 +71,95 @@
                 exit;
         }
                       
-}               
+}   
+
+///////////////////////model///////////////////////////////////////////////
+
+if(isset($_POST['carModelSubmit']) && isset($_POST['carmodel'])){
+   escapeString($_POST);
+    if(emptyFields($_POST)){
+        $addCar['status'] = 'Empty Fields';
+        echo json_encode($addCar);
+        exit;
+    }
+
+    $sql = "SELECT * FROM `cars` WHERE `carname` = ? AND `carmodel` = ? AND `bodytype`=?";
+    $stmt = $db->prepare($sql);
+    $stmt->bind_param('sss',$_POST['carname'], $_POST['carmodel'],$_POST['bodytype']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if($result->num_rows){
+        $stmt->close();
+        $addCar['status'] = 'This Car combination already exist';
+        echo json_encode($addCar);
+        exit;
+    }else{
+            $sql = "INSERT INTO `cars` (`carname`,`carmodel`,`bodytype`) VALUES (?,?,?)";
+            $stmt =  $db->prepare($sql);
+            $stmt->bind_param('sss',$_POST['carname'], $_POST['carmodel'],$_POST['bodytype']);
+            $result =$stmt->execute();
+            $stmt->close();
+
+            if($result == true){
+                $addCar['status'] = 'success';
+                echo json_encode($addCar);
+                exit;
+            }else{
+                $addCar['status'] = 'Something Went Wrong';
+                echo json_encode($addCar);
+                exit;
+            }
+    }
+     
+
+}
 
 
 
 
+/////////////////////////////////////delete model//////////////////////////////////////////////////////////////////
+if(isset($_POST['modelDeleteSubmit'])){
+    $sql = "DELETE FROM `cars` WHERE `cars`.`id` = ?";
+    $id = $_POST['delId'];
+    delCarfunc($sql,$id);
+}
+//*************************************delete logo*************************************************************** */
+if(isset($_POST['logoDeleteSubmit'])){
+    //echo 'landed on right place';
+    $sql = "DELETE FROM `carbrands` WHERE `carbrands`.`brand_id` = ?";
+    $id = $_POST['delId'];
+    delCarfunc($sql,$id);
+}
+//*************************************delete car bodytype*************************************************************** */
+    if(isset($_POST['bodytypeDelSubmit'])){
+        $sql = "DELETE FROM `bodytype` WHERE `bodytype`.`id` = ?";
+        $id = $_POST['delId'];
+        delCarfunc($sql,$id);
+        
 
+    }
+
+//////////////////////////////image uploading function/////////////////////////////////////////////////
+
+function delCarfunc($sql,$id){
+        global $db;
+        $stmt = $db->prepare($sql);
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        
+        $result = $stmt->affected_rows;
+        if($result == true){
+            $deleteModel['status'] = 'success';
+            $deleteModel['id'] = $id;
+            echo json_encode($deleteModel);
+            exit;
+        }else{
+            $deleteModel['status'] = 'Something Went Wrong';
+            echo json_encode($deleteModel);
+            exit;
+        }
+}
 
 function ImgUpload($file,$carname){
             $fileSize   = $file['size'];

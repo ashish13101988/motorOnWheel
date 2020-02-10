@@ -1,3 +1,5 @@
+ <?php $url = basename($_SERVER['PHP_SELF']);?>
+ 
  <nav class="navbar navbar-expand-lg sticky-top navbar-dark">
         <div class="container">
         <a class="navbar-brand bg-light pr-1" href="index.php"  >
@@ -9,13 +11,13 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-            <li class="nav-item active mx-3">
-                <a class="nav-link" href="index.php"><i class="fas fa-home mr-1"></i> Home <span class="sr-only">(current)</span></a>
+            <li class="nav-item  mx-3 <?php if($url == 'index.php'){echo 'active';}?>">
+                <a class="nav-link" href="index.php"><i class="fas fa-home mr-1"></i> Home </a>
             </li>
-            <li class="nav-item active mr-3">
+            <li class="nav-item mr-3 <?php if($url == 'posts.php'){echo 'active';}?>" >
                 <a class="nav-link " href="posts.php">All Cars</a>
             </li>
-            <li class="nav-item dropdown active mr-3">
+            <li class="nav-item dropdown  mr-3 <?php if($url == 'createAds.php' || $url == 'manageAds.php'){echo 'active';}?>">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Sell My Car
                 </a>
@@ -31,7 +33,7 @@
 
                 </div>
             </li>
-            <li class="nav-item active mr-3">
+            <li class="nav-item  mr-3 <?php if($url == 'help.php'){echo 'active';}?>">
                 <a class="nav-link" href="#">Help</a>
             </li>
             </ul>
