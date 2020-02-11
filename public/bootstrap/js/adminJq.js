@@ -54,7 +54,7 @@ $(document).ready(function(){
         $('#confirmModal .modal-body').html(DeleteModal(delId, 'Want to remove car model?','modelDeleteSubmit','data-index'));
         $('#confirmModal').modal('show');
     });
-/*******************************delete logo**********************************************************/
+ /*******************************delete logo**********************************************************/
 
 
     $('.logoDelBtn').click(function(){
@@ -70,7 +70,7 @@ $(document).ready(function(){
         $('#confirmModal').modal('show');
     });
 
-/******************************delete car model******************************************/
+ /******************************delete car model******************************************/
     $('#deletFormModal').submit(function(e){
         e.preventDefault();
         let formData = new FormData(this);
@@ -157,7 +157,7 @@ function deleteSubmit(formData,dataIndex){
             }
             $('#deletFormModal')[0].reset();
             $('#confirmModal').modal('hide');
-             window.scrollTo(0, 50); 
+            window.scrollTo(0, 50); 
         });
    
 }
