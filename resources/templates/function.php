@@ -1,5 +1,7 @@
 <?php
-
+spl_autoload_register(function ($className) {
+    include($_SERVER['DOCUMENT_ROOT']."MOTORONWHEELS/classes/".$className.".php");
+});
 
 function url_encode($str){
    $str = serialize($str);
@@ -14,6 +16,12 @@ function url_decode($str){
 function isLogIn(){
    if(!isset($_SESSION['id'])){
       header('location:login.php');
+   }
+}
+
+function isAdmin(){
+   if(!isset($_SESSION['id']) || $_SESSION['role'] != 'admin'){
+      header('location:../login.php');
    }
 }
 
@@ -42,21 +50,6 @@ function getResult($sql){
 }
 
 
-function insertQuery($sql){
-   global $db;
-   
-}
-
-function escapeString($name){
-   global $db;
-   if(is_array($name)){
-      foreach($name as $value){
-         $db->real_escape_string($value);
-      }
-   }
-
-}
-
 function emptyFields($array){
     global $db;
    if(is_array($array)){
@@ -69,44 +62,17 @@ function emptyFields($array){
 }
 
 
+function dateCreate($date){
+  $original_date = $date;
+  $timestamp = strtotime($original_date);
 
+  $new_date = date("d-m-Y", $timestamp);
 
-/* function imgUpload($file,$carname){
-      $fileSize   = $file['size'];
-            $maxSize    = 1024*512;
-            $fileAllowed = array('jpg','jpeg','png');
-            if(empty($file['name'])):
-                $error['name'] = 'empty feilds';
-                $error['upload'] = 'false';
-                return json_encode($error);
-            else:
-                $fileName  = $file['name'];
-                $ext = pathinfo($fileName,PATHINFO_EXTENSION);
-                $ext = strtolower($ext);
-                    if(!in_array($ext, $fileAllowed)):
-                        $error['name']= 'Only jpeg, png, jpg allowed';
-                        $error['upload'] = false;
-                        return json_encode($error);
-                    elseif($fileSize > $maxSize || $fileSize <= 0 ):
-                         $error['name'] = 'Only 512KB allowed';
-                        $error['upload'] = false;
-                        return json_encode($error);
-                    else:
-                        $changeFileName = strtolower($carname).'.'.$ext;
-                        $upload = '../cars/logos/';
-                        if(file_exists($upload.$changeFileName)):
-                           unlink($upload.$changeFileName);
-                        endif;
-                        if( move_uploaded_file($file['tmp_name'],$upload.$changeFileName)):
-                             $error['name'] = $changeFileName;
-                             $error['upload'] = true;
-                             return json_encode($error);
-                        else:
-                             $error['name'] ='something went wrong please try again';
-                             $error['upload'] = false;
-                             return json_encode($error);
-                        endif;
-                    endif;//ext checking if      
-            endif; //empty if
-} */
+return $new_date; 
+}
+///date time format for sql query
+function createTimeFormat($date){
+   $date = date_create_from_format('m/d/Y', $date);
+   return date_format($date, 'Y-m-d');
+}
 

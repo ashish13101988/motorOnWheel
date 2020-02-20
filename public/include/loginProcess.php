@@ -51,6 +51,7 @@
                             $_SESSION['id']     =   $row['id'];
                             $_SESSION['name']   =   $row['name'];
                             $_SESSION['email']  =   $row['email'];
+                            $_SESSION['role']   =   $row['role'];
 
                             $stmt->close();
                             header('location:../index.php');

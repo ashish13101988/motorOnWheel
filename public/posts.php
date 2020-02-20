@@ -10,9 +10,9 @@
          
 
           $condition = $db->escape_string($_GET['condition']);
-          $sql = "SELECT * FROM `ads` JOIN adimg ON `ads`.id = `adimg`.`ads_id` WHERE `ads`.`status` ='aprove' AND `ads`.`cartype` = '$condition' GROUP BY `ads`.`id`" ;
+          $sql = "SELECT * FROM `ads` JOIN adimg ON `ads`.id = `adimg`.`ads_id` WHERE `ads`.`status` ='approved' AND `ads`.`cartype` = '$condition' GROUP BY `ads`.`id`" ;
         }else{
-          $sql = "SELECT * FROM `ads` JOIN adimg ON `ads`.id = `adimg`.`ads_id` WHERE `ads`.`status` ='aprove' GROUP BY `ads`.`id`" ;
+          $sql = "SELECT * FROM `ads` JOIN adimg ON `ads`.id = `adimg`.`ads_id` WHERE `ads`.`status` ='approved' GROUP BY `ads`.`id`" ;
         }
       
        
@@ -120,7 +120,7 @@ foreach($rows as $row){
                     </tr>
                     <tr>
                         <td>Engine</td>
-                        <th><?=$row['cylinder']?>Cyl 2.0L Turbo Diesel</th> 
+                        <th><?=$row['cylinder']?></th> 
                     </tr>
                     <tr>
                         <td>Economy</td>

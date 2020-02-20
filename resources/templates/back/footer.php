@@ -5,6 +5,7 @@
 
 
         <script src="../bootstrap/js/jquery.js"></script>
+        <script src="../bootstrap/js/jquery-ui/jquery-ui.js"></script>
         <script src="../bootstrap/js/bootstrap.bundle.js"></script>
         <script src="../bootstrap/js/admin.js"></script>
         <script src="../bootstrap/js/jqueryFx.js"></script>

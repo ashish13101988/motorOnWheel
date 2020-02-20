@@ -33,7 +33,7 @@ $url = basename($_SERVER['PHP_SELF']);
                 </li>
 
 
-                <li ><a href=""><i class="fas fa-ad "></i>Ads</a></li>
+                <li class="<?php if($url == 'ads.php'){echo 'active';}?>"><a href="ads.php"><i class="fas fa-ad "></i>Ads</a></li>
                 
             </ul>
         </div>

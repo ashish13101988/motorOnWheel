@@ -72,11 +72,7 @@
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
                             </a>
-
-                         
-                        
-                        
-                           
+                   
                         
                        
                 </div>
@@ -115,7 +111,7 @@
                     </tr>
                     <tr>
                         <td>Engine</td>
-                        <th><?=$row['cylinder']?>Cyl 2.0L Turbo Diesel</th> 
+                        <th><?=$row['cylinder']?></th> 
                     </tr>
                     <tr>
                         <td>Economy</td>

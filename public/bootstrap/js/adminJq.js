@@ -1,5 +1,143 @@
 $(document).ready(function(){
+    //to capitalize first charc of string
+    String.prototype.capitalize = function () {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    }
 
+    /***************************date range*******************************************/
+    $('#tsorterFrm .datePicker').click(function(){
+        
+        $('.dateinput').datepicker({
+            beforeShow: function (input, inst) {
+                $(document).off('focusin.bs.modal');
+            },
+            onClose: function () {
+                $(document).on('focusin.bs.modal');
+            },
+            changeYear: true,
+            changeMonth: true,
+            showOtherMonths: true,
+            maxDate : new Date()
+
+        });
+        $('#dateRangeModal').modal('show');
+       
+    });
+
+    $('#dateRangeModal form').submit(function(e){
+        e.preventDefault();
+        let formData = new FormData(this);
+        console.log(formData);
+        $.when(sortTable(formData)).done(function(response){
+            $('#SortContent').html(response); 
+            $('#dateRangeModal').modal('hide');
+        });
+    });
+
+    /************************sort function************************** */
+       // $(function () {
+            $('.tsorter').on('change',function(){
+                /* let dateRange = $(this).val();
+                if(dateRange === 'dRange'){
+                    
+                    return;
+                } */
+                let tsorterFrm = $('#tsorterFrm')[0];
+                let formData = new FormData(tsorterFrm);
+                
+                $.when(sortTable(formData)).done(function (response) {
+                    $('#SortContent').html(response);  
+                });  
+            });
+       // });    
+       /*  $(window).bind('popstate',function () {
+               let sortName= 'sortName';
+                let    value= 'hyundai';
+ 
+            $.when(sortTable('sortName', 'hyundai')).done(function (response) {
+                $('#fetchedResult').html(response);
+               
+            });
+        }); */
+
+    $('#SortContent').click(function(e){
+        if ($(e.target).data('index')){
+            e.preventDefault();
+            let currentPage = $(e.target).data('index');
+            //  alert(currentPage);
+            let tsorterFrm = $('#tsorterFrm')[0];
+            let formData = new FormData(tsorterFrm);
+            formData.append('currentPage', JSON.stringify(currentPage));
+
+            $.when(sortTable(formData)).done(function (response) {
+                $('#SortContent').html(response);
+            });    
+
+        }
+        
+            
+            
+          
+        });
+
+        function sortTable(formData){
+            return $.ajax({
+               url:'include/sortTableProcess.php',
+                type: "POST",
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false
+            });
+        } 
+
+
+    /****************************************************************/
+
+    $('.statusChange').click(function(){
+        let changedVal = $(this).data('action');
+        let adId = $(this).data('id');
+        $.when(updateAdStatus(adId,changedVal)).done(function(response){
+            if(response.status == 'success'){
+                let changeStatus =  $('.allAds .status');
+
+                $.each(changeStatus,function(elem,value){
+                    if($(value).data('status') == adId){
+                        $(this).text(changedVal.capitalize());
+                        $(this).removeClass(function (index, css) {
+                            return (css.match(/\bbg-\S+/g) || []).join(' ');
+                           
+                        });
+                            if (changedVal == 'approved') {
+                                $(this).addClass('bg-success');
+                            } else if (changedVal == 'rejected') {
+                                $(this).addClass('bg-danger');
+                            } else if (changedVal == 'pending') {
+                                $(this).addClass('bg-warning');
+                            } else {
+                                $(this).addClass('bg-warning');
+                            }     
+                            alert(`Status changed to ${changedVal}`);
+                    }
+                });
+                       
+           }
+       });
+      
+    });
+
+    function updateAdStatus(adId = null, changedVal = 'pending'){
+        return $.ajax({
+            url: 'include/adAction.php',
+            type:'POST',
+            data:{
+                adId : adId,
+                changedVal: changedVal,
+                updateSubmit:'updateSubmit'
+            },
+            dataType:'JSON'
+        });
+    }
   
 
     /***********************/
@@ -81,6 +219,32 @@ $(document).ready(function(){
     });
 
 
+/*********************************single view* on modal******************************************************/
+    $('#SortContent').click(function(e){
+        
+        if ($(e.target).hasClass('openSingleView')){
+            let id = $(e.target).data('ad-id');
+
+            $.when(loadSingleView(id)).done(function (response) {
+                $('#Admin_loadSingleView .statusChange').attr('data-id', id);
+                $('#Admin_loadSingleView .modal-body').html(response);
+                $('#Admin_loadSingleView').modal('show');
+            }); 
+        }
+        
+    });
+
+    function loadSingleView(adId){
+        return $.ajax({
+            url: 'singleView.php',
+            type:'POST',
+            data:{
+                id:adId,
+                singleView:'singleView'
+            },
+        });
+    }
+
 
 
 
@@ -135,9 +299,9 @@ function alertBox(alertMsg,alertType="warning"){
 
 function DeleteModal(id=null,msg,submitName,indexValue){
     return `
-        <input type="text" name="delId" value="${id}">
-        <input type="text" name="${submitName}" value="${submitName}">
-        <input type="text" value="${indexValue}" data-index-value>
+        <input type="hidden" name="delId" value="${id}">
+        <input type="hidden" name="${submitName}" value="${submitName}">
+        <input type="hidden" value="${indexValue}" data-index-value>
         <h3>${msg}</h3>  
     `;
 }

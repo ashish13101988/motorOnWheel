@@ -7,7 +7,7 @@
         $row = $result->fetch_assoc();
         $total = $row['COUNT(*)'];
         $perPage = 10;
-        $offSet = 0;
+        $offSet = '';
         $totalPage = ceil($total/$perPage);
         $pageNo = 0;
 
@@ -16,7 +16,7 @@
         if($pageNo == 1){
             $pageNo = 0;
         }else{
-            $offSet = ($perPage*$pageNo)-10;
+            $offSet = ($perPage*$pageNo)-$perPage;
         }
         
         $sql = "SELECT * FROM `cars` LIMIT $offSet , $perPage";
@@ -78,7 +78,7 @@
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-end">
             <?php
-                if($pageNo == 0 ){
+                if($pageNo == 0 ){  
                     $pageNo = 1; 
                 }else{
                     $pageNo = $pageNo-1;

@@ -1,4 +1,0 @@
-Home:index.php
-Cars:add-user.php
-User:users.php
-Ads:ads.php

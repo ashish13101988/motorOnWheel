@@ -9,10 +9,10 @@
         $rows = getResult($sql);
        
        echo "<pre>";
-      // var_dump($rows);
+       var_dump($rows);
         echo "</pre>";
 
-       
+       echo $rows[0]['id'];
 
 ?>
 
@@ -28,7 +28,7 @@
 
 
 
-                 <div id="slider<?=$row['id']?>" class="carousel slide" data-ride="carousel">
+                 <div id="slider<?=$rows[0]['id']?>" class="carousel slide" data-ride="carousel">
                       <div class="carousel-inner">  
                         <div class="carousel-item active">
                                 <img src="uploads/<?=$rows[0]['imgname']?>" class="d-block w-100 rounded" alt="...">
@@ -44,32 +44,16 @@
                        
                             <?php }  ?>
                          </div>
-                          <a class="carousel-control-prev" href="#slider<?=$row['id']?>" role="button" data-slide="prev">
+                          <a class="carousel-control-prev" href="#slider<?=$rows[0]['id']?>" role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
                             </a>
-                            <a class="carousel-control-next" href="#slider<?=$row['id']?>" role="button" data-slide="next">
+                            <a class="carousel-control-next" href="#slider<?=$rows[0]['id']?>" role="button" data-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
                             </a>
-
-                         
-                        
-                        
-                           
-                        
-                       
+      
                 </div>
-
-
-
-
-
-
-
-
-
-
 
             </div>
             <div class="col-md-6">
@@ -103,7 +87,7 @@
                     </tr>
                     <tr>
                         <td>Engine</td>
-                        <th><?=$rows[0]['cylinder']?>Cyl 2.0L Turbo Diesel</th> 
+                        <th><?=$rows[0]['cylinder']?></th> 
                     </tr>
                     <tr>
                         <td>Economy</td>

@@ -1,3 +1,5 @@
+<?php isAdmin();?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +10,9 @@
     <link rel="icon" href="../bootstrap/img/favicon.png" type="image/gif" sizes="48x48"> 
     <link href="https://fonts.googleapis.com/css?family=Poly&display=swap" rel="stylesheet">  
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../bootstrap/js/jquery-ui/jquery-ui.css">
+    <link rel="stylesheet" href="../bootstrap/js/jquery-ui/jquery-ui.structure.css">
+    <link rel="stylesheet" href="../bootstrap/js/jquery-ui/jquery-ui.theme.css">
     <link rel="stylesheet" href="../bootstrap/fontawesome/css/all.css" type="text/css">
     <link rel="stylesheet" href="../bootstrap/css/style.css" type="text/css">
     <link rel="stylesheet" href="../bootstrap/css/admin.css" type="text/css">

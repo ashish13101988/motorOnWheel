@@ -11,31 +11,42 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-            <li class="nav-item  mx-3 <?php if($url == 'index.php'){echo 'active';}?>">
-                <a class="nav-link" href="index.php"><i class="fas fa-home mr-1"></i> Home </a>
-            </li>
-            <li class="nav-item mr-3 <?php if($url == 'posts.php'){echo 'active';}?>" >
-                <a class="nav-link " href="posts.php">All Cars</a>
-            </li>
-            <li class="nav-item dropdown  mr-3 <?php if($url == 'createAds.php' || $url == 'manageAds.php'){echo 'active';}?>">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Sell My Car
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li class="nav-item  mx-3 <?php if($url == 'index.php'){echo 'active';}?>">
+                    <a class="nav-link" href="index.php"><i class="fas fa-home mr-1"></i> Home </a>
+                </li>
+                <li class="nav-item mr-3 <?php if($url == 'posts.php'){echo 'active';}?>" >
+                    <a class="nav-link " href="posts.php">All Cars</a>
+                </li>
+                <li class="nav-item dropdown  mr-3 <?php if($url == 'createAds.php' || $url == 'manageAds.php'){echo 'active';}?>">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sell My Car
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                    
+                        <a class="dropdown-item" href="createAds.php"> 
+                            Create Ads
+                        </a>
+                        <a class="dropdown-item" href="manageAds.php">
+                            Manage Ads
+                        </a>
+
+                    </div>
+                </li>
+                <li class="nav-item  mr-3 <?php if($url == 'help.php'){echo 'active';}?>">
+                    <a class="nav-link" href="#">Help</a>
+                </li>
+                <?php
+                    if(isset($_SESSION['id']) && $_SESSION['role']=='admin'):
+                ?>        
+                        <li class="nav-item  mr-3">
+                            <a class="nav-link" href="admin"> Admin</a>
+                        </li>
+                  <?php  endif; ?>
+                
+               
 
                 
-                    <a class="dropdown-item" href="createAds.php"> 
-                        Create Ads
-                    </a>
-                    <a class="dropdown-item" href="manageAds.php">
-                        Manage Ads
-                    </a>
-
-                </div>
-            </li>
-            <li class="nav-item  mr-3 <?php if($url == 'help.php'){echo 'active';}?>">
-                <a class="nav-link" href="#">Help</a>
-            </li>
             </ul>
            <!--  -->
           
