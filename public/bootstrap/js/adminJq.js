@@ -26,10 +26,14 @@ $(document).ready(function(){
 
     $('#dateRangeModal form').submit(function(e){
         e.preventDefault();
+        let startDate   =   $('#dateRangeModal input[name ="startDate"]').val();
+        let endDate     =   $('#dateRangeModal input[name ="endDate"]').val();
         let formData = new FormData(this);
-        console.log(formData);
+        $('#tsorterFrm input[name ="startDate"]').val(startDate);
+        $('#tsorterFrm input[name ="endDate"]').val(endDate);
         $.when(sortTable(formData)).done(function(response){
             $('#SortContent').html(response); 
+            $('#dateRangeModal form')[0].reset();
             $('#dateRangeModal').modal('hide');
         });
     });

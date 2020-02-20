@@ -93,8 +93,8 @@
                             <th><input type="reset" class="btn btn-sm btn-success" value="Reset"></th>
                         </tr>
                     </table>
-                    <input type="text" id="startDate" value=''>
-                    <input type="text" id="endDate" value=''>
+                    <input type="hidden" id="startDate" value='' name="startDate">
+                    <input type="hidden" id="endDate" value='' name="endDate">
                 </form>   
             </div>                
             <div id="SortContent">

@@ -4,21 +4,18 @@
 
      if(isset($_POST['sortname']) || isset($_POST['sortCarName']) ||isset($_POST['cartype']) ||isset($_POST['status']) ||isset($_POST['sortDate']) ||isset($_POST['currentPage']) || isset($_POST['startDate']) || isset($_POST["endDate"])):
         
-
-          $status        = isset($_POST['status']) ? $_POST['status'] : '';
-          $currentPage   = isset($_POST['currentPage']) ? $_POST['currentPage'] : 1;
-          $sortDate      = isset($_POST['sortDate']) ? $_POST['currentPage']:'';
-          $cartype       = isset($_POST['cartype']) ? $_POST['cartype'] : '';
-          $sortCarName   = isset($_POST['sortCarName']) ? $_POST['sortCarName'] : '';
-          $sortname      = isset($_POST['sortname']) ? $_POST['sortname'] : '';
-          $startDate     = isset($_POST['startDate']) ? $_POST['startDate'] : '';
-          $endDate       = isset($_POST['endDate']) ? $_POST['endDate'] : '';
+          $status        = isset($_POST['status']) ? trim($_POST['status']) : null;
+          $currentPage   = isset($_POST['currentPage']) ? trim($_POST['currentPage']) : 1;
+          $sortDate      = isset($_POST['sortDate']) ? trim($_POST['sortDate']):null;
+          $cartype       = isset($_POST['cartype']) ? trim($_POST['cartype']) : null;
+          $sortCarName   = isset($_POST['sortCarName']) ? trim($_POST['sortCarName']) :null;
+          $sortname      = isset($_POST['sortname']) ? trim($_POST['sortname']) :null;
+          $startDate     = isset($_POST['startDate']) ? trim($_POST['startDate']) :null;
+          $endDate       = isset($_POST['endDate']) ? trim($_POST['endDate']) : null;
          
           $perPage = 4;
           $offset = ($currentPage-1)*$perPage;
          
-         
-
           $sql = "SELECT `ads`.`id` AS 'ads_id' , `users`.`id` AS 'user_id' ,ads.*,users.* FROM ads INNER JOIN users ON `users`.`id` = `ads`.`user_id`";
 
           //this query for total row counts
@@ -36,6 +33,8 @@
                
                $sql = "SELECT `ads`.`id` AS 'ads_id' , `users`.`id` AS 'user_id' ,ads.*,users.* FROM ads INNER JOIN users ON `users`.`id` = `ads`.`user_id` WHERE `ads`.`created_at` BETWEEN CAST('$startDate' AS DATE)
                AND CAST('$endDate' AS DATE)";
+               $rowsCount = getResult($sql);
+               $totalRows = count($rowsCount);
 
           }
 
@@ -55,18 +54,16 @@
                $conditions[] = "`ads`.`created_at` $sortDate";
           }
           
-         
-          if(count($conditions) > 0){
-              
-             
+          echo 'condition'.count($conditions) ;
+          if(count($conditions) > 0){             
                $sql .= " ORDER BY " . implode(' , ', $conditions )." LIMIT  $offset , $perPage";
                      
           }else{
                 $sql .= " LIMIT  $offset , $perPage";
           }   
-         // echo $sql;
+          //echo $sql;
     
-         $rows = getResult($sql);
+          $rows = getResult($sql);
      
           //counter for indexing
           $counter       =    0;
