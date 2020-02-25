@@ -40,13 +40,13 @@
 
         $sql = "SELECT `carname` FROM  `cars` GROUP BY `carname` ORDER BY `carname`";
         $rows = fetchResult($sql);
-      //print_r($rows);
+     
         
         
         
         ?>
    
-     <form method="Post" action="include/createAdsProcess.php" enctype="multipart/form-data" class="filter-form" > 
+     <form method="Post" action="include/createAdsProcess.php" enctype="multipart/form-data" id="createAdsForm" > 
 
          
 
@@ -64,19 +64,19 @@
 
             <div class="form-group col-md-3">
                 <label for="vehiclename">Vehicle Name</label>
-                <select  class="form-control carname" required name="vName">
-                     <option value="">Choose Brand</option>
+                <select  class="form-control carname createAdsForm" required name="vName">
+                    <option value="">Choose Brand</option>
                     <?php
                         foreach($rows as $row){
                                echo "<option value='$row[0]'>".ucfirst($row[0])."</option>";
                           }
-                       ?>   
+                    ?>   
                 </select>
             </div>
 <!-- modeldiv -->
             <div class="form-group col-md-3">
                 <label for="vehiclemodel">Model</label>
-                <select  class="form-control carmodel" required name="vModel">
+                <select  class="form-control carmodel createAdsForm" required name="vModel">
                     <option value="" selected>Choose Model</option>
                      
                 </select>

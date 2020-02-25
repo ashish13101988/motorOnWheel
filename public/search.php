@@ -1,25 +1,9 @@
- <?php require_once('../resources/templates/config.php');?>
- <?php include_once(TEMPLATE_FRONT.DS.'header.php');?>  
+
+<?php include_once(TEMPLATE_FRONT.DS.'header.php');?>  
 
  <!-- navbar -->
 <?php include_once(TEMPLATE_FRONT.DS.'nav.php');?>  
 
-
-<?php
-  /*       
-    if(isset($_GET['q'])){
-           
-           
-            //print_r($rows);
-    }else{
-        $message = "No Result found";
-        die;
-    }
-     */
-        
-    
-
-?>
 
 <div class="container mb-2">
     <nav aria-label="breadcrumb">
@@ -29,12 +13,10 @@
         </ol>
     </nav>
 
-    
-
  
      <?php 
-            if(isset($_GET['q'])):
-                 $rows = url_decode($_GET['q']);
+          if(isset($rows)):
+                
 
             foreach($rows as $row):
                 $adId =$row['id'];
@@ -154,14 +136,43 @@
                         <?php   endforeach; 
                     
                         else:
-                            echo '<div class="alert alert-info"><h5>No car found. Find Again </h5></div>';
+                        
+                             echo '<div class="alert alert-info"><h5>No car found. Find Again </h5></div>';
                                     include('include/indexForm.php');
-                                endif;
+                        endif;
+      
                             
                         ?>
+
     
         
 </div>    
+
+                      <div class='my-3' >
+                            <?php
+                               isset($_GET['page']) ? $currentPage=$_GET['page'] : $currentPage= 1;
+
+                              // print_r($_GET);
+                               $q = '';
+                               foreach($_GET as $key => $value){
+                                 if(isset($_GET['page'])){
+                                    unset($_GET['page']);
+                                 }
+                                  $q .=  $key ."=".$value."&";
+                               }
+                               substr_replace($q,"",-1);
+                              
+                               $baseUrl = 'filterVehicle.php?'.$q;
+                            
+                                $pagination =  new Pagination(array(
+                                    'baseUrl'       =>  $baseUrl,
+                                    'totalRows'     =>  $totalRows,
+                                    'perPage'       =>  10,
+                                    'currentPage'   =>  $currentPage,
+                                    
+                                ));
+                                ?>
+                      </div>   
 
 
 
@@ -208,10 +219,6 @@
   </div>
 </div>
 
-
-<!-- //enquiry model -->
-
-<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#enquiryModal" data-whatever="@mdo">Open modal for @mdo</button> -->
 
 
 <div class="modal fade" id="enquiryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

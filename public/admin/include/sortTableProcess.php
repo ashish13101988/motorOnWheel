@@ -30,7 +30,12 @@
 
                $startDate = createTimeFormat($startDate); 
                $endDate = createTimeFormat($endDate); 
-               
+
+               if($startDate > $endDate){
+                    echo 'Date range not valid';
+                    exit;
+               }
+               echo "<h6 class='text-center bg-secondary p-2'>Showing result <strong>$startDate</strong> to <strong>$endDate</strong></h6>";
                $sql = "SELECT `ads`.`id` AS 'ads_id' , `users`.`id` AS 'user_id' ,ads.*,users.* FROM ads INNER JOIN users ON `users`.`id` = `ads`.`user_id` WHERE `ads`.`created_at` BETWEEN CAST('$startDate' AS DATE)
                AND CAST('$endDate' AS DATE)";
                $rowsCount = getResult($sql);
@@ -54,7 +59,7 @@
                $conditions[] = "`ads`.`created_at` $sortDate";
           }
           
-          echo 'condition'.count($conditions) ;
+         
           if(count($conditions) > 0){             
                $sql .= " ORDER BY " . implode(' , ', $conditions )." LIMIT  $offset , $perPage";
                      

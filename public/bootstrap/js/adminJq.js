@@ -28,6 +28,10 @@ $(document).ready(function(){
         e.preventDefault();
         let startDate   =   $('#dateRangeModal input[name ="startDate"]').val();
         let endDate     =   $('#dateRangeModal input[name ="endDate"]').val();
+            if(startDate>endDate){
+                alert('Start Date must be less than End Date');
+                return;
+            }
         let formData = new FormData(this);
         $('#tsorterFrm input[name ="startDate"]').val(startDate);
         $('#tsorterFrm input[name ="endDate"]').val(endDate);
@@ -39,13 +43,9 @@ $(document).ready(function(){
     });
 
     /************************sort function************************** */
-       // $(function () {
+    
             $('.tsorter').on('change',function(){
-                /* let dateRange = $(this).val();
-                if(dateRange === 'dRange'){
-                    
-                    return;
-                } */
+              
                 let tsorterFrm = $('#tsorterFrm')[0];
                 let formData = new FormData(tsorterFrm);
                 
@@ -53,16 +53,7 @@ $(document).ready(function(){
                     $('#SortContent').html(response);  
                 });  
             });
-       // });    
-       /*  $(window).bind('popstate',function () {
-               let sortName= 'sortName';
-                let    value= 'hyundai';
- 
-            $.when(sortTable('sortName', 'hyundai')).done(function (response) {
-                $('#fetchedResult').html(response);
-               
-            });
-        }); */
+       
 
     $('#SortContent').click(function(e){
         if ($(e.target).data('index')){

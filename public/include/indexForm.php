@@ -1,6 +1,10 @@
 <?php
-      $sql = "SELECT `carname` FROM  `cars` GROUP BY `carname` ORDER BY `carname`";
+      $sql = "SELECT `carname` FROM  `ads` GROUP BY `carname` ORDER BY `carname`";
       $rows = fetchResult($sql);
+//fething bodytype
+      $sqlBodyType = "SELECT `bodytype` FROM  `ads` GROUP BY `bodytype` ORDER BY `bodytype`";
+      $bodyTypeRow = fetchResult($sqlBodyType);
+     
       // fetch all car from db
        $carSql = "SELECT COUNT(`id`) FROM  `ads`";
        $carCount = fetchResult($carSql);
@@ -27,7 +31,7 @@
 
 
 
-        <form action="include/filterVehicle.php" method="POST" class="filter-form">
+        <form action="filterVehicle.php" method="" class="filter-form" id="homeFilterForm">
           <input type="hidden" id="carSearch" value="all" name="carType">
             <div class="row">
               <div class="col-md-8 offset-md-2 text-center mt-4">
@@ -35,7 +39,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       
-                      <select class="form-control carname" name="carName"> 
+                      <select class="form-control carname homefilter" name="carName"> 
                         <option value="" selected>Select Any</option>
                       <?php
                         foreach($rows as $row){
@@ -49,24 +53,29 @@
                   </div> 
                   <div class="col-md-4">
                     <div class="form-group">
-                        <select class="form-control carmodel" name="carModel">
-                           <option value="" selected>Choose Model</option>
+                        <select class="form-control carmodel homefilter" name="carModel">
+                           <option value="">Choose Model</option>
                         </select>
                     </div>
                   </div> 
 
                   <div class="col-md-4">
                     <div class="form-group">
-                      <select class="form-control bodyType" name="cBodyType">
+                      <select class="form-control bodyType homefilter" name="cBodyType">
                           <option value="">Select Body Type</option>
-                          <?php showOptions($bodyType);?>
+                          <?php
+                            foreach($bodyTypeRow as $row){
+                                  echo "<option value='$row[0]'>".ucfirst($row[0])."</option>";
+                                  
+                          }
+                       ?>
                       </select>
                     </div>
                   </div>
 
                   <div class="col-md-2">
                     <div class="form-group">
-                       <select class="form-control" name="minPrice">
+                       <select class="form-control homefilter" name="minPrice">
                         <option value="">No Minimum</option>
                         <?php
                           foreach($price as $minPrice){
@@ -79,7 +88,7 @@
 
                   <div class="col-md-2">
                     <div class="form-group"> 
-                       <select class="form-control" name="maxPrice">
+                       <select class="form-control homefilter" name="maxPrice">
                         <option value="">No Maximum</option>
                         <?php
                           foreach($price as $minPrice){
@@ -93,7 +102,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       
-                      <select class="form-control" name="location">
+                      <select class="form-control homefilter" name="location">
                         <option value="">Select Location</option>
                         <?php showOptions($states);?>
                       </select>

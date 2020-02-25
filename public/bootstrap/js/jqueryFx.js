@@ -17,175 +17,145 @@ $(document).ready(function () {
                 }, "slow");
                 return false;
         });
+/******************************************changing car condition*******************************************/
+        $('.home-filter-div .carSearchBtn').click(function(e){
+                let carCondition = $(e.target).text().toLowerCase();
+                $('.home-filter-div #carSearch').val(carCondition);
+                $.each($('.carSearchBtn'),function(){
+                        $(this).removeClass('btn-active');
+                        $(e.target).addClass('btn-active');
+                });
 
-    
+                let formData = new FormData(homeFilterForm);
+                $.when(
+                        fetchBarndCount(formData)
+                ).done((resCount) => {
+                        btnValChange(JSON.parse(resCount));
+                });
+
+        });
     /*********************************************************************************************************/
-       
-    //cartype
+        $('#homeFilterForm .keyword').keyup(function(){
 
-      $('.home-filter-div .carSearchBtn').click((e) => {
-        let carType = $(e.target).text().toLowerCase();
-             
-        let carName = $('filter-form .carname').val();
-        let carModel = $('.filter-form .carmodel').val();
-        let cBodyType = $('.filter-form .bodyType').val();
-
-
-        //ajax invoking;
-
-        $.when(
-              
-                fetchBarndCount(carType, carName, carModel, cBodyType)
-        ).done((resCount)=>{
-                btnValChange(JSON.parse(resCount));
         });
-        
-        
-      });
 
-    //changing carmodel dropdown
-     $('.filter-form .carname').change(function (e) {
 
-      //  let optionVal = $(e.target).hasClass('carname');
-                if ($(e.target).hasClass('carname')) {
-                        let carType = $('.filter-form #carSearch').val();
-                        let carName = $('.filter-form .carname').val();
-                        let carModel = $('.filter-form .carmodel').val();
-                        let cBodyType = $('.filter-form .bodyType').val();
-                       
-                        //invoking ajax mmethod;
+        $('.homefilter').change(function(){
 
-                        $.when(
-                                fetchCarModel(carName), 
-                                fetchBarndCount(carType, carName, carModel, cBodyType)
-                                ).done((res,resCount) => {
-                                        setCarModel(res[0]);
-                                        btnValChange(JSON.parse(resCount[0]));
-
-                        });
-                        
+                let homeFilterForm = $('#homeFilterForm')[0];
+                let minPrice = parseInt($("#homeFilterForm select[name='minPrice']").val());
+                let maxPrice = parseInt($("#homeFilterForm select[name='maxPrice']").val());
+                let formData = new FormData(homeFilterForm);
+                if (minPrice > maxPrice && maxPrice != '') {
+                        alert('Min price must be lesser than Max Price');
+                        return;
                 }
-        });
 
-        //changing carbodytype dropdown
-         $('.filter-form .carmodel').change(function (e) {
-
-                if ($(e.target).hasClass('carmodel')) {
-                        let carType = $('.filter-form #carSearch').val();
-                        let carName = $('.filter-form .carname').val();
-                        let carModel = $('.filter-form .carmodel').val();
-                        let cBodyType = $('.filter-form .bodyType').val();
-
-
+                if($(this).attr('name') == 'carName'){
+                        $('.carmodel').val('');
+                        $('.bodyType').val('');
+                        formData = new FormData(homeFilterForm);
                         $.when(
-                                fetchCarBodyType(carName, carModel),
-                                fetchBarndCount(carType, carName, carModel, cBodyType)
-                                ).done(function (res,resCount) {
-                                        setCarBodyType(res[0]);
-                                        btnValChange(JSON.parse(resCount[0]));
-                                
+                                fetchCarModel(formData),
+                                fetchBarndCount(formData)
+                        ).done((res, resCount) => {
+                                setCarModel(JSON.parse(res[0]));
+                                btnValChange(JSON.parse(resCount[0]));
                         });
+                       return;
+                } //setting carmodel
+
+                if ($(this).attr('name') == 'carModel'){
+                        $('.bodyType').val('');
+                        formData = new FormData(homeFilterForm);
+                        $.when(
+                                fetchCarModel(formData),
+                                fetchBarndCount(formData)
+                        ).done((res, resCount) => {
+                                setCarBodyType(JSON.parse(res[0]));
+                                btnValChange(JSON.parse(resCount[0]));
+                        });
+                }//setting carbody
+
+                if($(this).attr('name') == 'cBodyType') {
+                        fetchAjaxCount(formData);
                 }
+                if($(this).attr('name') == 'minPrice'){
+                       fetchAjaxCount(formData);
+                }
+                if ($(this).attr('name') == 'maxPrice') {
+                        fetchAjaxCount(formData);
+                }
+                
         });
-
-        //fetching car count by bodytype
-
-         $('.filter-form .bodyType').change(function (e) {
-
-                if ($(e.target).hasClass('bodyType')) {
-
-                        let carType = $('.filter-form #carSearch').val();
-                        let carName = $('.filter-form .carname').val();
-                        let carModel = $('.filter-form .carmodel').val();
-                        let cBodyType = $('.filter-form .bodyType').val();
-
-                         $.when(
-                                 fetchBodyTypeCount(carType, carName, carModel, cBodyType)                               
-                         ).done(function (resCount) {
-                                btnValChange(JSON.parse(resCount));
-
-                         });
-                 } 
-         });
-
-
-//all index form ajax method
-
-         //fetching car by condition eg. new, used;
-        
-        function carCondition(carType = null, carName = null, carModel = null, cBodyType = null){
-                return $.ajax({
-                        url: 'include/filterVehicle.php',
-                                type: 'POST',
-                                data: {
-                                        carType: carType,
-                                        carName: carName,
-                                        carModel: carModel,
-                                        cBodyType: cBodyType
-                                        },
-                                dataType: "JSON"
+        function fetchAjaxCount(formData){
+                $.when(
+                        fetchBarndCount(formData)
+                ).done((resCount) => {
+                        btnValChange(JSON.parse(resCount));
                 });
         }
 
-        function fetchCarModel(carName) {
+    /*********************************************************************************************************/  
+        function fetchCarModel(formData) {
                 return $.ajax({
                         url: 'include/carName.php',
                         type: 'POST',
-                        data: {
-                                carName: carName
-                      
-                        },
-                        dataType: "JSON"
+                        data: formData,
+                        datyaType: 'JSON',
+                        contentType: false,
+                        cache: false,
+                        processData: false
                 });
         }
-
-  //fetching carmodel;
-
-        function fetchCarBodyType(carName ,carModel) {
-                return $.ajax({
-                        url: 'include/carName.php',
-                        type: 'POST',
-                        data: {
-                                carName: carName,
-                                carModel: carModel,
-
-                        },
-                        dataType: "JSON"
-                });
-        }
-
   //fetchin car count by brand name;
-        function fetchBarndCount(carType = null, carName = null, carModel = null, cBodyType = null){
+        function fetchBarndCount(formData){
                 return $.ajax({
-                        url:'include/filterVehicle.php',
+                        url:'filterVehicle.php',
                         type:'POST',
-                        data:{
-                                carType:carType,
-                                carName:carName,
-                                carModel:carModel,
-                                cBodyType:cBodyType
-                        },
-                        datyaType:'JSON'
+                        data: formData, 
+                        datyaType:'JSON',
+                        contentType: false,
+                        cache: false,
+                        processData: false
                 });
         }
-//fetching car count by bodytype;
-        function fetchBodyTypeCount(carType = null, carName = null, carModel = null, cBodyType = null) {
+//setting car model create ads
+        function createAdsFormAjax(carname = null, carmodel= null){
                 return $.ajax({
-                        url: 'include/filterVehicle.php',
+                        url: 'include/carName.php',
                         type: 'POST',
                         data: {
-                                carType: carType,
-                                carName: carName,
-                                carModel: carModel,
-                                cBodyType: cBodyType
-                        },
-                        datyaType: 'JSON'
+                                carName: carname,
+                                carModel: carmodel,
+                                fromTable: `cars`
+                                }
+                                 
                 });
         }
 
+        $('#createAdsForm .createAdsForm').change(function () {
 
+               let carname = $('select[name="vName"]').val().toLowerCase();
+               let carmodel = $('select[name="vModel"]').val().toLowerCase();
+                
+               if ($(this).attr('name') === 'vName') {
+                       $.when(createAdsFormAjax(carname,carmodel)).done(function(res){
+                                setCarModel(JSON.parse(res));
+                       });
+               }
+               if ($(this).attr('name') === 'vModel') {
+                       $.when(createAdsFormAjax(carname,carmodel)).done(function (res) {
+                               setCarBodyType(JSON.parse(res));
+                       });
+               }
+               
+               
+        });
 
+//set model into option fields
         function setCarModel(res) {
+               
             let carmodel = $('.carmodel');
             $('.carmodel option').remove();
             carmodel.append(`<option value=''>Select Model</option>`);
@@ -212,14 +182,9 @@ $(document).ready(function () {
                 $('.countCar').html(Text);
         }
 
-  
-
-
    /***********************************************************************************************************/
-  
 
         //view modal
-
 
         $('.viewData').click((e)=>{
                 let adId;
@@ -231,22 +196,17 @@ $(document).ready(function () {
 
                 $.ajax({
                         url: "include/singleAd.php",
-                        method: "post",
-                       
+                        method: "post",      
                         data:{adId:adId},
                         success:function(data){
                                 $('#showViewContent').html(data);
                         }
-
                 });
-                
-                
-
+        
                 $('#viewDetailsModal').modal('show');
         });
         
 // show modal
-
 
         $('.delete').click( e =>{
                 let deleteId;
@@ -281,15 +241,11 @@ $(document).ready(function () {
 
                                 setTimeout(function(){
                                         location.reload(); 
-                                        $(abc).modal('hide');
-                                       
+                                        $(abc).modal('hide');      
                                 },500)
                         }); 
-
-                      
-                        
+      
                 }
-               
         });
 
 //wishlist function
@@ -332,5 +288,4 @@ $(document).ready(function () {
                          console.log('i m tiggered');
                 });
         
-       
-});
+});//document ready function  bracket

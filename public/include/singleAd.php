@@ -8,11 +8,11 @@
     $sql = "SELECT * FROM `ads` JOIN adimg ON `ads`.id = `adimg`.`ads_id` WHERE `ads`.`id` = $adId " ;
         $rows = getResult($sql);
        
-       echo "<pre>";
+      /*  echo "<pre>";
        var_dump($rows);
-        echo "</pre>";
+        echo "</pre>"; 
 
-       echo $rows[0]['id'];
+       echo $rows[0]['id'];*/
 
 ?>
 
@@ -95,9 +95,7 @@
                     </tr>
 
                 </table>
-                <button class="btn">Edit</button>
-               
-                <button class="btn">Delete</button>
+                
             </div>
         </div><!---row-->
     </div>
