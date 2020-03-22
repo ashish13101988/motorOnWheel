@@ -1,10 +1,10 @@
 <section class="container-fluid footer-content">
     <div class="container">
-        <div class="d-flex justify-content-between">
-            <div class="md-col-3">
+        <div class="row">
+            <div class="col-md-4 col-lg-3 col-6 ">
                <img src="bootstrap/img/logo.png" alt="logo" id="footer-logo" >
             </div>
-            <div class="md-col-3">
+            <div class="col-md-4 col-lg-3 col-6 ">
                 <h5>Car For Sale</h5>
                 <ul>
                     <li><a href="posts.php">All Cars</a></li>
@@ -14,7 +14,7 @@
                 </ul>
 
             </div>
-            <div class="md-col-3">
+            <div class="col-md-4 col-lg-3 col-6">
                 <h5>Quick Link</h5>
                 <ul>
                     <li><a href="#">Terms & Conditions</a></li>
@@ -24,7 +24,7 @@
                 </ul>
 
             </div>
-            <div class="md-col-3">
+            <div class="col-md-4 col-lg-3 col-6 ">
                 <h5>Contact Us</h5>
                 
 

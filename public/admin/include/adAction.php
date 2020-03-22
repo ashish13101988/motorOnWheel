@@ -1,5 +1,5 @@
 <?php
-     require_once('../../../resources/templates/config.php');
+    require_once('../../../resources/templates/config.php');
      
     if(isset($_POST['updateSubmit'])):
         if(!empty($_POST['changedVal'])){

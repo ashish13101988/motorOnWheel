@@ -76,3 +76,17 @@ function createTimeFormat($date){
    return date_format($date, 'Y-m-d');
 }
 
+
+function getSingleView($sql,$id){
+   global  $db;
+   
+   $stmt = $db->prepare($sql);
+   $stmt->bind_param('i',$id);
+   $stmt->execute();
+   $result =  $stmt->get_result();
+   $stmt->close();
+   return $result->fetch_assoc();
+   
+
+
+}

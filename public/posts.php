@@ -7,8 +7,6 @@
 
 <?php
         if(isset($_GET['condition'])){
-         
-
           $condition = $db->escape_string($_GET['condition']);
           $sql = "SELECT * FROM `ads` JOIN adimg ON `ads`.id = `adimg`.`ads_id` WHERE `ads`.`status` ='approved' AND `ads`.`cartype` = '$condition' GROUP BY `ads`.`id`" ;
         }else{
@@ -41,10 +39,10 @@
     
 
     <?php 
-foreach($rows as $row){
-   $adId =$row['id'];
-    $query = "SELECT `imgname` FROM `adimg` WHERE `ads_id` = $adId";
-    $images = getResult($query);
+      foreach($rows as $row){
+          $adId =$row['id'];
+          $query = "SELECT `imgname` FROM `adimg` WHERE `ads_id` = $adId";
+          $images = getResult($query);
 
     
     ?>

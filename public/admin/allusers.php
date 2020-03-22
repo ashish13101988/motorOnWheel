@@ -3,23 +3,30 @@
 
 <?php
     
-    $baseUrl = 'ads.php';
-    $orderBy = "ORDER BY (CASE WHEN `ads`.`status` = 'pending' THEN 1 ELSE `ads`.`status` END)";
+    $baseUrl = 'allusers.php';
+   // $orderBy = "ORDER BY (CASE WHEN `ads`.`status` = 'pending' THEN 1 ELSE `ads`.`status` END)";
     $perPage = 4;
+
+
 
     $paginationSql = "SELECT COUNT(id) FROM `ads`";
     $paginationResult = getResult($paginationSql);
    
     $totalRows = $paginationResult[0]['COUNT(id)'];
 
-    $sql = "SELECT `ads`.`id` AS 'ads_id' , `users`.`id` AS 'user_id' ,ads.*,users.* FROM ads INNER JOIN users ON `users`.`id` = `ads`.`user_id` $orderBy LIMIT $perPage";
-
+    $sql = "SELECT * FROM `users`";
+    
     $rows = getResult($sql);
     
     $counter = 0;
 
     $carSql = "SELECT `carname` FROM `cars` GROUP BY `carname` ORDER BY `carname` ASC";
     $carRows = getResult($carSql);
+
+    /* echo "<pre>";
+    print_r($rows);
+    echo "</pre>";
+ */
    
 ?>
 
@@ -36,7 +43,8 @@
                      <nav aria-label="breadcrumb">
                         <ol class="breadcrumb bg-dark">
                             <li class="breadcrumb-item active"><a href="index.php" ><i class="fas fa-home mr-2"></i>Home</a></li>
-                            <li class="breadcrumb-item active">Ads</li>
+                            <li class="breadcrumb-item active">Users</li>
+                            <li class="breadcrumb-item active">All Users</li>
                         </ol>
                     </nav>
             <div class="rounded">
@@ -103,15 +111,13 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
+                            <th scope="col">Pic</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Car Type</th>
-                            <th scope="col">Car Name 
-                                
-                            </th>
                             <th scope="col">Email</th>
                             <th scope="col">Contact</th>
+                            <th scope="col">Contact</th>
                             <th scope="col">Satuts</th>
-                            <th scope="col">Uploaded </th>
+                            
                             <!-- <th scope="col">Action</th> -->
                             <th scope="col">View</th>
                         </tr>
@@ -122,18 +128,25 @@
                             
                             <tr>
                                 <td><?= $counter = $counter+1?></td>
+                                <td>
+                        <?php 
+                            if(!empty($row['pic'])){
+                                $pic =$row['pic'];
+                                echo "<img src='cars/profile/$pic' width='100px' class='rounded'>";
+                        }else{
+                                echo "<img src='cars/profile/profile-placeholder.png' width='100px' class='rounded'>";
+                        }
+                        ?>        
+                               
+                                
+                                </td>
                                 <td><?=ucwords($row['name']);?></td>
-                                <td><?=ucwords($row['cartype']);?></td>
-                                <td><?=ucwords($row['carname']);?></td>
                                 <td><a href="mailto:<?=$row['email']?>" class="text-light"><?=strtolower($row['email']);?></a></td>
                                 <td><?=ucwords($row['phone']);?></td>
 
                         <?php 
-                            if(strtolower($row['status']) == 'pending'){
+                            if(strtolower($row['role']) == 'admin'){
                                 $bgColor = 'bg-warning';
-                                
-                            }elseif(strtolower($row['status']) == 'rejected'){
-                                    $bgColor = 'bg-danger';
                                 
                             }
                             else{
@@ -141,10 +154,10 @@
                                 
                             }
                         ?>
-                                <td data-status="<?=$row['ads_id']?>" class="status <?=$bgColor?> text-light" ><?=ucwords($row['status']);?></td>
+                                <td data-status="<?=$row['ads_id']?>" class="status <?=$bgColor?> text-light" ><?=ucwords($row['role']);?></td>
                                 <td><?=dateCreate($row['created_at'])?></td>
                                 
-                                <td><a href="#" class="btn btn-primary openSingleView" data-ad-id="<?=$row['ads_id']?>">View</a></td>
+                                <td><a href="user.php?userid=<?=$row['id']?>" class="btn btn-primary ">View</a></td>
                                 
                             </tr>
                         <?php endforeach;?>

@@ -27,7 +27,9 @@ $url = basename($_SERVER['PHP_SELF']);
                         <i class="fas fa-users "></i>Users <i class="fas fa-chevron-down float-right mt-4"></i>
                     </a>
                     <div class="collapse" id="collapseExample">
-                        <a href="#"><i class="fas fa-user ml-4"></i>All Users</a>
+                        <a href="allusers.php"><i class="fas fa-user ml-4"></i>All Users</a>
+                        <a href="profile.php"><i class="fas fa-user ml-4"></i>Profile</a>
+                       
                         
                     </div>
                 </li>

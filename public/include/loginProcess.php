@@ -43,7 +43,7 @@
             }else{
 
                 $row = $result->fetch_assoc();
-                print_r($row);
+               
 
                 $pwdHash = password_verify($userPwd, $row['password']);
 
