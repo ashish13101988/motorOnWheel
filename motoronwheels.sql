@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2020 at 03:44 PM
+-- Generation Time: Apr 04, 2020 at 10:41 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -25,6 +25,35 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `adapprove`
+--
+
+CREATE TABLE `adapprove` (
+  `token_id` int(11) NOT NULL,
+  `ad_id` int(11) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `mailsent` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `adapprove`
+--
+
+INSERT INTO `adapprove` (`token_id`, `ad_id`, `token`, `mailsent`, `created_at`) VALUES
+(3, 56, 'cff889575d854b4d9342a9ac30eb1d0bdbe3b8169f5f16393f', 1, '2020-04-01 08:46:29'),
+(4, 57, '0c87391eec37eba9d59b9319e2237db9fa3a9e62acee3eb818', 0, '2020-04-01 08:54:53'),
+(5, 58, '3aab81c8c2aba2368a214378b10180edf543c5e0fca3de0801', 0, '2020-04-01 09:00:04'),
+(6, 59, '0686bbefec197c2a65bfaff7dac4289369f97b877a47d80f56', 0, '2020-04-01 10:22:26'),
+(7, 60, 'f3b45788a4509f1ab34504e36859548ac6ec5643bbd3227b8f', 1, '2020-04-01 10:24:52'),
+(8, 61, 'bfb3013d111dd4511b3d5e9ce42ce68afe11a47b340957e017', 1, '2020-04-01 12:28:29'),
+(9, 62, '267d81ebd112b9869bfd8664144fdf23e40949e6dd29d34cdf', 1, '2020-04-03 05:15:54'),
+(10, 63, '7628cc3d4ab9338e7fcdab045a98d00f586d80e8efb6246684', 1, '2020-04-03 08:25:41'),
+(11, 64, '12e967ae780a773756697aef9f2bbd731818f366be6b35a6aa', 1, '2020-04-03 08:28:12');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `adimg`
 --
 
@@ -41,21 +70,32 @@ CREATE TABLE `adimg` (
 --
 
 INSERT INTO `adimg` (`imgId`, `user_id`, `ads_id`, `imgname`, `created_at`) VALUES
-(2634, 9, 49, '5e37ce1940fb7.jpg', '2020-02-03 07:39:05'),
 (2635, 9, 50, '5e37d5197e29f.jpg', '2020-02-03 08:08:57'),
 (2636, 9, 50, '5e37d5197ea0b.jpg', '2020-02-03 08:08:57'),
 (2637, 10, 51, '5e37f370063e7.jpg', '2020-02-03 10:18:24'),
 (2638, 10, 51, '5e37f37006b4b.jpg', '2020-02-03 10:18:24'),
 (2639, 9, 52, '5e3d84a930d50.jpg', '2020-02-07 15:39:21'),
 (2640, 9, 52, '5e3d84a93144d.jpg', '2020-02-07 15:39:21'),
-(2641, 9, 53, '5e4bd046f0ec6.jpg', '2020-02-18 11:53:42'),
-(2642, 9, 53, '5e4bd046f1ca8.jpg', '2020-02-18 11:53:43'),
-(2643, 9, 53, '5e4bd046f27ed.jpg', '2020-02-18 11:53:43'),
 (2644, 13, 54, '5e4bd0e687da6.jpg', '2020-02-18 11:56:22'),
 (2645, 13, 54, '5e4bd0e68846c.jpg', '2020-02-18 11:56:22'),
-(2646, 9, 55, '5e552503c1e6a.jpg', '2020-02-25 13:45:39'),
-(2647, 9, 55, '5e552503c213e.jpg', '2020-02-25 13:45:39'),
-(2648, 9, 55, '5e552503c2378.jpg', '2020-02-25 13:45:39');
+(2649, 9, 56, '5e8454e54f69c.jpg', '2020-04-01 08:46:29'),
+(2650, 9, 57, '5e8456dd83500.jpg', '2020-04-01 08:54:53'),
+(2651, 9, 57, '5e8456dd837cc.jpg', '2020-04-01 08:54:53'),
+(2652, 9, 57, '5e8456dd839df.jpg', '2020-04-01 08:54:53'),
+(2653, 9, 58, '5e845813cb32d.jpg', '2020-04-01 09:00:03'),
+(2654, 9, 58, '5e845813cb5ca.jpg', '2020-04-01 09:00:03'),
+(2655, 9, 59, '5e846b6281d20.jpg', '2020-04-01 10:22:26'),
+(2656, 9, 59, '5e846b6282006.jpg', '2020-04-01 10:22:26'),
+(2657, 9, 60, '5e846bf4ce0b8.jpg', '2020-04-01 10:24:52'),
+(2658, 9, 60, '5e846bf4ce3a8.jpg', '2020-04-01 10:24:52'),
+(2659, 9, 61, '5e8488ed436c2.jpg', '2020-04-01 12:28:29'),
+(2660, 9, 61, '5e8488ed43a67.jpg', '2020-04-01 12:28:29'),
+(2661, 9, 61, '5e8488ed43e0a.jpg', '2020-04-01 12:28:29'),
+(2662, 9, 62, '5e86c68a09d2f.jpg', '2020-04-03 05:15:54'),
+(2663, 9, 62, '5e86c68a0a061.jpg', '2020-04-03 05:15:54'),
+(2664, 9, 63, '5e86f3050f58b.jpg', '2020-04-03 08:25:41'),
+(2665, 9, 63, '5e86f3050f92b.jpg', '2020-04-03 08:25:41'),
+(2666, 9, 64, '5e86f39cc77b2.jpg', '2020-04-03 08:28:12');
 
 -- --------------------------------------------------------
 
@@ -93,13 +133,20 @@ CREATE TABLE `ads` (
 --
 
 INSERT INTO `ads` (`id`, `user_id`, `status`, `cartype`, `carname`, `carmodel`, `bodytype`, `odometer`, `transmission`, `engine`, `price`, `year`, `cylinder`, `engineDes`, `fuelEconomy`, `turbo`, `power`, `tow`, `colour`, `seats`, `doors`, `created_at`) VALUES
-(49, 9, 'rejected', 'used', 'BMW', 'M3', 'Sedan', '10000', 'Manual', NULL, '9230', '2016', '8', 'petrol', '8', NULL, NULL, NULL, 'teal', '15', '2', '2020-02-13 11:15:19'),
 (50, 9, 'approved', 'new', 'BMW', 'M2', 'Coupe', '8522', 'manual', NULL, '9999', '2018', '3', 'Turbo 3.2 Diesel', '11', NULL, NULL, NULL, 'red', '2', '2', '2020-02-26 08:57:20'),
 (51, 10, 'Pending', 'new', 'Mercedes-Benz', 'SLS-Class', 'Convertible', '1200', 'automatic', NULL, '90000', '2020', '6', 'Turbo 2.2 Petrol', '8', NULL, NULL, NULL, 'red', '2', '2', '2020-02-13 12:27:08'),
 (52, 9, 'approved', 'used', 'Hyundai', 'Accent', 'Sedan', '12', 'automatic', NULL, '9999', '2018', '4', 'turbo petrol', '12', NULL, NULL, NULL, 'indigo', '4', '4', '2020-02-13 11:05:08'),
-(53, 9, 'approved', 'used', 'mini', 'roadster', 'convertible', '2000', 'automatic', NULL, '8999', '2018', '2', 'petrol', '9', NULL, NULL, NULL, 'red', '4', '4', '2020-02-19 11:34:23'),
 (54, 13, 'approved', 'used', 'ford', 'F100', 'Cab Chassis', '3000', 'automatic', NULL, '12999', '2018', '10', 'Turbo 2.2 Diesel', '5', NULL, NULL, NULL, 'teal', '6', '3', '2020-02-18 12:01:14'),
-(55, 9, 'pending', 'used', 'Hyundai', 'Accent', 'Sedan', '2500', 'automatic', NULL, '20000', '2018', '5', 'petrol', '20', NULL, NULL, NULL, 'white', '4', '4', '2020-02-25 13:45:39');
+(56, 9, 'pending', 'used', 'BMW', 'M2', 'Coupe', '5236', 'automatic', NULL, '99999', '2017', '8', 'Turbo 2.2 Petrol', '10', NULL, NULL, NULL, 'red', '4', '4', '2020-04-01 08:46:29'),
+(57, 9, 'pending', 'new', 'ford', 'bronco', 'Cab Chassis', '122', 'automatic', NULL, '1234', '2017', '8', 'petrol', '8', NULL, NULL, NULL, 'cyan', '4', '4', '2020-04-01 08:54:53'),
+(58, 9, 'pending', 'new', 'Hyundai', 'Accent', 'Sedan', '12345', 'automatic', NULL, '98765', '2017', '8', 'petrol', '9', NULL, NULL, NULL, 'black', '4', '4', '2020-04-01 09:00:03'),
+(59, 9, 'pending', 'new', 'audi', 'A2', 'Hatch', '1234', 'automatic', NULL, '9876', '2017', '6', 'petrol', '8', NULL, NULL, NULL, 'brown', '4', '4', '2020-04-01 10:22:26'),
+(60, 9, 'pending', 'new', 'audi', 'A1', 'Hatch', '566', 'automatic', NULL, '9876', '2017', '12234', 'p', '9', NULL, NULL, NULL, 'magenta', '4', '4', '2020-04-01 10:24:52'),
+(61, 9, 'rejected', 'used', 'BMW', 'M3', 'Sedan', '1452', 'automatic', NULL, '7893', '2018', '8', 'petrol', '4563', NULL, NULL, NULL, 'tan', '4', '4', '2020-04-01 19:20:13'),
+(62, 9, 'approved', 'new', 'BMW', 'M3', 'Sedan', '8789', 'automatic', NULL, '7890', '2018', '8', 'petrol', '8', NULL, NULL, NULL, 'black', '4', '4', '2020-04-03 08:14:53'),
+(63, 9, 'pending', 'new', 'audi', 'A2', 'Hatch', '456321', 'automatic', NULL, '41256', '2017', '12', 'petrol', '12', NULL, NULL, NULL, 'orange', '1', '2', '2020-04-03 08:25:40'),
+(64, 9, 'rejected', 'new', 'BMW', 'M3', 'Sedan', '123', 'automatic', NULL, '222', '2018', '12', '22', '2', NULL, NULL, NULL, 'purple', '2', '2', '2020-04-03 17:31:40'),
+(65, 9, 'pending', 'new', 'BMW', 'M4', 'Convertible', '123', 'automatic', NULL, '12345', '2017', '1', 'petrol', '12', NULL, NULL, NULL, 'blue', '21', '2', '2020-04-03 08:33:51');
 
 -- --------------------------------------------------------
 
@@ -215,12 +262,21 @@ INSERT INTO `cars` (`id`, `carname`, `carmodel`, `bodytype`) VALUES
 
 CREATE TABLE `enquiry` (
   `enqId` int(11) NOT NULL,
-  `adId` int(11) NOT NULL,
+  `adId` int(11) DEFAULT NULL,
   `name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `contact` varchar(50) NOT NULL,
-  `message` text NOT NULL
+  `message` text NOT NULL,
+  `action` varchar(20) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `enquiry`
+--
+
+INSERT INTO `enquiry` (`enqId`, `adId`, `name`, `email`, `contact`, `message`, `action`, `created_at`) VALUES
+(15, NULL, 'as', 'ashish1234@gmail.com', '7412589630', 'as', '0', '2020-04-04 19:46:09');
 
 -- --------------------------------------------------------
 
@@ -251,7 +307,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `role`, `name`, `email`, `password`, `phone`, `city`, `state`, `country`, `address`, `zip`, `pic`, `created_at`) VALUES
 (9, 'admin', 'ashish kumar', 'ashish13101988@gmail.com', '$2y$10$dHFQ4cLtikcvPvNewl6R/OVpGXQLQgPbE8kgOsATr1D9eAh92yQXy', '9910488178', 'delhi', 'delhi', 'India', 'abc', '110086', '5e590630a4946.jpg', '2020-02-28 10:58:31'),
 (10, 'subscriber', 'praveen kumar', 'praveen.143r@gmail.com', '$2y$10$86811iBRFx2Q4FItbb2GvOE8tTFatXX9jdnaEAhfMVCeKhDiksBmy', '', '', '', '', '', '', '', '2020-02-28 10:58:31'),
-(11, 'subscriber', 'john deo', 'john@demo.com', '$2y$10$i39FuTPQyajHYDPdHY1GyeIljVhRYxOC59qhYgacUlg3iJH8HBPLK', '', '', '', '', '', '', '', '2020-02-28 10:58:31'),
+(11, 'admin', 'john deo', 'john@demo.com', '$2y$10$i39FuTPQyajHYDPdHY1GyeIljVhRYxOC59qhYgacUlg3iJH8HBPLK', '9968335517', 'melborne', 'melbrone', 'austraila', '27/29, Street No. 9 ', '67687', '5e79ee14761d3.png', '2020-02-28 10:58:31'),
 (12, 'subscriber', 'janny deo', 'janny@demomail.com', '$2y$10$BDZKEG2/4DUlrIbwtpn1Be1FIVaW9WABhoUgF2MIjnIPzbHaueBzi', '', '', '', '', '', '', '', '2020-02-28 10:58:31'),
 (13, 'subscriber', 'Lakshmi Rani', 'lakshmi@gmail.com', '$2y$10$n7xE3tAK.ANizvXgmC4wvOODD5RwTPfYXOXKBS4P5esXmOHgIO1Tq', '', '', '', '', '', '', '', '2020-02-28 10:58:31');
 
@@ -279,6 +335,12 @@ INSERT INTO `wishlist` (`id`, `user_id`, `ads_id`, `created_at`) VALUES
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `adapprove`
+--
+ALTER TABLE `adapprove`
+  ADD PRIMARY KEY (`token_id`);
 
 --
 -- Indexes for table `adimg`
@@ -336,16 +398,22 @@ ALTER TABLE `wishlist`
 --
 
 --
+-- AUTO_INCREMENT for table `adapprove`
+--
+ALTER TABLE `adapprove`
+  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT for table `adimg`
 --
 ALTER TABLE `adimg`
-  MODIFY `imgId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2649;
+  MODIFY `imgId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2667;
 
 --
 -- AUTO_INCREMENT for table `ads`
 --
 ALTER TABLE `ads`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `bodytype`
@@ -369,7 +437,7 @@ ALTER TABLE `cars`
 -- AUTO_INCREMENT for table `enquiry`
 --
 ALTER TABLE `enquiry`
-  MODIFY `enqId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `enqId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`

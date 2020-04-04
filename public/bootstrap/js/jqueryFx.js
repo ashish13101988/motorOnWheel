@@ -1,5 +1,7 @@
 $(document).ready(function () {
-
+        let carNameUrl = 'include/carName.php';
+        let carCountUrl = 'filterVehicle.php';
+        $('#homeFilterForm')[0].reset();
        /* Scroll to top when arrow up clicked BEGIN */
         $(window).scroll(function () {
                 let height = $(window).scrollTop();
@@ -28,39 +30,35 @@ $(document).ready(function () {
 
                 let formData = new FormData(homeFilterForm);
                 $.when(
-                        fetchBarndCount(formData)
+                        fetchResponse(formData,carCountUrl)
                 ).done((resCount) => {
-                        btnValChange(JSON.parse(resCount));
+                        btnValChange(resCount.count);
                 });
 
         });
     /*********************************************************************************************************/
-        $('#homeFilterForm .keyword').keyup(function(){
-
-        });
-
-
+      
         $('.homefilter').change(function(){
-
                 let homeFilterForm = $('#homeFilterForm')[0];
                 let minPrice = parseInt($("#homeFilterForm select[name='minPrice']").val());
                 let maxPrice = parseInt($("#homeFilterForm select[name='maxPrice']").val());
                 let formData = new FormData(homeFilterForm);
-                if (minPrice > maxPrice && maxPrice != '') {
-                        alert('Min price must be lesser than Max Price');
-                        return;
-                }
+                        if (minPrice > maxPrice && maxPrice != '') {
+                                alert('Min price must be lesser than Max Price');
+                                return;
+                        }
 
                 if($(this).attr('name') == 'carName'){
                         $('.carmodel').val('');
                         $('.bodyType').val('');
                         formData = new FormData(homeFilterForm);
                         $.when(
-                                fetchCarModel(formData),
-                                fetchBarndCount(formData)
+                                fetchResponse(formData, carNameUrl),
+                                fetchResponse(formData, carCountUrl)
                         ).done((res, resCount) => {
-                                setCarModel(JSON.parse(res[0]));
-                                btnValChange(JSON.parse(resCount[0]));
+                               
+                                setCarModel(res);
+                                btnValChange(resCount[0].count);
                         });
                        return;
                 } //setting carmodel
@@ -68,12 +66,13 @@ $(document).ready(function () {
                 if ($(this).attr('name') == 'carModel'){
                         $('.bodyType').val('');
                         formData = new FormData(homeFilterForm);
+                       
                         $.when(
-                                fetchCarModel(formData),
-                                fetchBarndCount(formData)
+                                fetchResponse(formData,carNameUrl),
+                                fetchResponse(formData,carCountUrl)
                         ).done((res, resCount) => {
-                                setCarBodyType(JSON.parse(res[0]));
-                                btnValChange(JSON.parse(resCount[0]));
+                                setCarBodyType(res);
+                                btnValChange(resCount[0].count);
                         });
                 }//setting carbody
 
@@ -88,39 +87,28 @@ $(document).ready(function () {
                 }
                 
         });
-        function fetchAjaxCount(formData){
+        function fetchAjaxCount(formData) {
                 $.when(
-                        fetchBarndCount(formData)
+                        fetchResponse(formData, carCountUrl)
                 ).done((resCount) => {
-                        btnValChange(JSON.parse(resCount));
+                        btnValChange(resCount.count);
                 });
         }
 
     /*********************************************************************************************************/  
-        function fetchCarModel(formData) {
+        function fetchResponse(formData,url) {
                 return $.ajax({
-                        url: 'include/carName.php',
+                        url: url,
                         type: 'POST',
                         data: formData,
-                        datyaType: 'JSON',
+                        dataType: 'JSON',
                         contentType: false,
                         cache: false,
                         processData: false
                 });
         }
-  //fetchin car count by brand name;
-        function fetchBarndCount(formData){
-                return $.ajax({
-                        url:'filterVehicle.php',
-                        type:'POST',
-                        data: formData, 
-                        datyaType:'JSON',
-                        contentType: false,
-                        cache: false,
-                        processData: false
-                });
-        }
-//setting car model create ads
+  
+        //setting car model create ads
         function createAdsFormAjax(carname = null, carmodel= null){
                 return $.ajax({
                         url: 'include/carName.php',
@@ -141,12 +129,12 @@ $(document).ready(function () {
                 
                if ($(this).attr('name') === 'vName') {
                        $.when(createAdsFormAjax(carname,carmodel)).done(function(res){
-                                setCarModel(JSON.parse(res));
+                                setCarModel(res);
                        });
                }
                if ($(this).attr('name') === 'vModel') {
                        $.when(createAdsFormAjax(carname,carmodel)).done(function (res) {
-                               setCarBodyType(JSON.parse(res));
+                               setCarBodyType(res);
                        });
                }
                
@@ -159,7 +147,7 @@ $(document).ready(function () {
             let carmodel = $('.carmodel');
             $('.carmodel option').remove();
             carmodel.append(`<option value=''>Select Model</option>`);
-            res.forEach(modelName => {
+            res[0].forEach(modelName => {
                     carmodel.append(`<option value='${modelName}'>${modelName}</option>`);
             });
         }
@@ -169,7 +157,7 @@ $(document).ready(function () {
             let bodytype = $('.bodyType');
             $('.bodyType option').remove();
             bodytype.append(`<option value=''>Select Body Type</option>`);
-            res.forEach(bodyname => {
+            res[0].forEach(bodyname => {
                     if (bodyname != '') {
                         bodytype.append(`<option value='${bodyname}'>${bodyname}</option>`);
                     }
@@ -178,7 +166,7 @@ $(document).ready(function () {
 
 
         function btnValChange(resCount) {
-                let Text = `<i class ='fas fa-car text-dark' ></i> ${resCount['count']} Cars <i class = 'fas fa-chevron-right float-right mt-2 text-dark'></i>`;
+                let Text = `<i class ='fas fa-car text-dark' ></i> ${resCount} Cars <i class = 'fas fa-chevron-right float-right mt-2 text-dark'></i>`;
                 $('.countCar').html(Text);
         }
 
@@ -235,6 +223,7 @@ $(document).ready(function () {
                                 
 
                         }).done(function(data){
+                                
                                 $(e.target).attr('disabled',true);
                                 let abc= $(e.target).parent().parent().parent().parent();
                                 $('abc .modal-body').html('hello wold');
@@ -242,7 +231,7 @@ $(document).ready(function () {
                                 setTimeout(function(){
                                         location.reload(); 
                                         $(abc).modal('hide');      
-                                },500)
+                                },500) 
                         }); 
       
                 }
@@ -253,7 +242,6 @@ $(document).ready(function () {
         $('.addWishlist').click(function(e){
 
                 let adId = $(e.target).data('ad-value');
-
                 $.ajax({
                         url:'include/wishlist.php',
                         type:'POST',
@@ -276,16 +264,52 @@ $(document).ready(function () {
 
  //enquiry modal
  
-                $('.enquiryBtn').click(function(e){
-                       let adId =  $(e.target).data('ad-value');
-                       $formAdVal = $('#enquiryModal .advalue').val(adId);
-                       console.log($formAdVal);
-                       $('#enquiryModal').modal('show');
-                });
+        $('.enquiryBtn').click(function(e){
+                let adId =  $(e.target).data('ad-value');
+                $formAdVal = $('#enquiryModal .advalue').val(adId);
+                console.log($formAdVal);
+                $('#enquiryForm')[0].reset();
+                $('#FooterenquiryModal').modal('show');
+        });
 
-                $('#enquiryModal').submit(function (e) {
-                        e.preventDefault();
-                         console.log('i m tiggered');
+        $('#enquiryForm').submit(function(e){
+                e.preventDefault();
+                let fd = new FormData(this);
+                fd.append('enqSubmit','enqSubmit');
+                url = 'include/enquiryProcess.php';
+                $.when(fetchResponse(fd, url)).done(function(res){
+                        if(res.msg == true){
+                           $('#FooterenquiryModal').modal('hide');
+                           $('#enquiryForm')[0].reset();
+                           let msg = `Thanks for showing Interest. We'll contact you soon!`;
+                          
+                           $(noticePopup(msg, 'success')).appendTo('body');
+                                setTimeout(function () {
+                                        $(".notice_popup").alert('close');
+                                }, 4000);
+                        }else{
+                          $('#enqResStatus').html(simpleNoticePopup(res.msg, 'warning'));
+                        }   
                 });
+                
+        });
+
+        function noticePopup(msg, alertStatus) {
+                return `<div class="alert alert-${alertStatus} alert-dismissible fade show notice_popup" role="alert">
+                <strong>${msg}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>`;
+        }
+
+        function simpleNoticePopup(msg, alertStatus) {
+                 return `<div class="alert alert-${alertStatus} alert-dismissible fade show " role="alert">
+                <strong>${msg}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>`;
+        };
         
 });//document ready function  bracket

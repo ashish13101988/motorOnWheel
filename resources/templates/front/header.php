@@ -10,5 +10,14 @@
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="bootstrap/fontawesome/css/all.css" type="text/css">
     <link rel="stylesheet" href="bootstrap/css/style.css" type="text/css">
+
+    <?php
+        if(isset($webpage)):
+            if($webpage == 'approve'):
+                echo "<link rel='stylesheet' href='bootstrap/css/approve.css' type='text/css'>";
+            endif;
+        endif;
+    ?>
+
 </head>
 <body>

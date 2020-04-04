@@ -1,6 +1,6 @@
  <?php require_once('../resources/templates/config.php');?>
  <?php include_once(TEMPLATE_FRONT.DS.'header.php');?>  
-
+ <?php $webpage = 'createAds';?>
 <!-- navbar -->
 <?php include_once(TEMPLATE_FRONT.DS.'nav.php');?>  
 
@@ -48,10 +48,8 @@
    
      <form method="Post" action="include/createAdsProcess.php" enctype="multipart/form-data" id="createAdsForm" > 
 
-         
 
         <div class="form-row py-5">
-
 
             <div class="form-group col-md-3">
                 <label for="cartype">Type</label>
@@ -171,8 +169,6 @@
                 <input type="text" class="form-control" name="vEngDesc" required>
                
             </div>
-
-            
             
              <div class="input-group">
                 <div class="input-group-prepend">
@@ -189,8 +185,9 @@
 
 
         </div>
-     
-        <button type="submit" class="btn btn-primary btn-lg mb-5" name="submit">Post Ad</button>
+            <input type="hidden" name="submit">
+         
+        <button type="submit" class="btn btn-primary btn-lg mb-5 " id="submitBtn" name="submit">Post Ad</button>
     </form>  
 
       

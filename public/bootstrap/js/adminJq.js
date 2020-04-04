@@ -77,7 +77,7 @@ $(document).ready(function(){
 
         function sortTable(formData){
             return $.ajax({
-               url:'include/sortTableProcess.php',
+                url:'include/sortTableProcess.php',
                 type: "POST",
                 data: formData,
                 contentType: false,

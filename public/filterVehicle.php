@@ -65,6 +65,9 @@ require_once('../resources/templates/config.php');
    if(!empty($carmodel)) {
       $conditions[] = "carmodel='$carmodel'";
    }
+   if(!empty($cBodyType)){
+         $conditions[] = "bodytype='$cBodyType'";
+      }
    if(!empty($minPrice) && empty($maxPrice)){
       $conditions[] = "price <= $minPrice";
    }

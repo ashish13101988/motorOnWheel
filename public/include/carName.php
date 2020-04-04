@@ -10,7 +10,7 @@
 
             $carModel = $_POST['carModel'];
             $data['carModel'] = $carModel;
-            $sql =  "SELECT `bodytype` FROM `ads` WHERE `carname` = ? AND `carmodel` = ?";
+            $sql =  "SELECT `bodytype` FROM `ads` WHERE `carname` = ? AND `carmodel` = ? GROUP BY 'bodytype'";
            
                 if(isset($table)){
                     $sql =  "SELECT `bodytype` FROM $table WHERE `carname` = ? AND `carmodel` = ?";

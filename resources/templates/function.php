@@ -90,3 +90,9 @@ function getSingleView($sql,$id){
 
 
 }
+
+function createToken(){
+   $token = bin2hex(openssl_random_pseudo_bytes(25));
+   return $token;
+}
+

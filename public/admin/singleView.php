@@ -1,6 +1,7 @@
 <?php require_once('../../resources/templates/config.php');?>
 
 <?php 
+   
     if(isset($_POST['singleView'])){
         $sql = "SELECT `ads`.`id` AS 'ads_id' , `users`.`id` AS 'user_id' ,ads.*,users.* FROM ads INNER JOIN users ON `users`.`id` = `ads`.`user_id` WHERE `ads`.`id` = ?";
 
@@ -12,9 +13,9 @@
         $row = $result->fetch_assoc();
 
         $stmt->close();
-        echo "<pre>";
-           // print_r($row);
-        echo "</pre>";
+       /*  echo "<pre>";
+            print_r($row);
+        echo "</pre>"; */
  
 
         $sql = "SELECT `imgname` FROM `adimg` WHERE `ads_id` = ?";
