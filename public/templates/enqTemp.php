@@ -10,7 +10,7 @@
         <div class="modal-body">
                 <div id="enqResStatus"></div>
                 <form  method="POST" action="include/enquiryProcess.php" id="enquiryForm">
-                    <input type="hidden" value="na"  class="advalue" name="adId">
+                    <input type="hidden" value="" name="adId">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Your Name:</label>
                         <input type="text" class="form-control" id="recipient-name" name="name" required>

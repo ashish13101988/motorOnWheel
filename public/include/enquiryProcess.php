@@ -7,6 +7,12 @@
         $name       =   $_POST['name'];
         $contact    =   $_POST['contact'];
         $enqMsg     =   $_POST['message'];
+        $adId       =   $_POST['adId'];
+        if(empty($_POST['adId'])):
+            $_POST['adId'] = 'na';
+        endif;
+        
+       // print_r($_POST);exit;
        
         if(empty($_POST['enqSubmit'])){
             $_POST['enqSubmit'] = 'enqSubmit';
@@ -57,9 +63,9 @@
 
         ///////inserting data in qury table
 
-        $sql = 'INSERT INTO `enquiry` (`name`, `email`, `contact`, `message`) VALUES (?,?,?,?)';
+        $sql = 'INSERT INTO `enquiry` (`adId`,`name`, `email`, `contact`, `message`) VALUES (?,?,?,?,?)';
         $stmt = $db->prepare($sql);
-        $stmt->bind_param('ssss',$name,$email,$contact,$enqMsg);
+        $stmt->bind_param('issss',$adId,$name,$email,$contact,$enqMsg);
         $stmt->execute();
 
         if($stmt->affected_rows > 0):

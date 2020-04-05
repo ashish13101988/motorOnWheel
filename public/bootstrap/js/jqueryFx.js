@@ -1,7 +1,7 @@
 $(document).ready(function () {
         let carNameUrl = 'include/carName.php';
         let carCountUrl = 'filterVehicle.php';
-        $('#homeFilterForm')[0].reset();
+       
        /* Scroll to top when arrow up clicked BEGIN */
         $(window).scroll(function () {
                 let height = $(window).scrollTop();
@@ -266,9 +266,8 @@ $(document).ready(function () {
  
         $('.enquiryBtn').click(function(e){
                 let adId =  $(e.target).data('ad-value');
-                $formAdVal = $('#enquiryModal .advalue').val(adId);
-                console.log($formAdVal);
-                $('#enquiryForm')[0].reset();
+               
+                $('#FooterenquiryModal input[name="adId"]').val(adId);
                 $('#FooterenquiryModal').modal('show');
         });
 

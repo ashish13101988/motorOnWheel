@@ -209,56 +209,11 @@
 </div>
 
 
-<!-- //enquiry model -->
-
-<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#enquiryModal" data-whatever="@mdo">Open modal for @mdo</button> -->
+  <!-- enquiry model -->
 
 
-<div class="modal fade" id="enquiryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Contact Us</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-        <input type="hidden" value=""  class="advalue" name="adId">
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Your Name:</label>
-            <input type="text" class="form-control" id="recipient-name" name="name">
-          </div>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Your Email:</label>
-            <input type="email" class="form-control" id="recipient-name" name="email">
-          </div>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Your Phone:</label>
-            <input type="text" class="form-control" id="recipient-name" name="contact">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text" name="message"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-        <button type="submit" class="btn btn-primary" name="enqSubmit">Send message</button>
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
+  <!-- enquiry form modal -->
+    <?php include('templates/enqTemp.php') ;?>
 
     <!-- footer -->
-     <?php require_once(TEMPLATE_FRONT.DS.'footer.php');?>
+    <?php require_once(TEMPLATE_FRONT.DS.'footer.php');?>
