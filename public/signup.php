@@ -66,12 +66,14 @@
                         <div>
                             <h6 class="mt-2">Already member ?
                             <a href="login.php" class="btn-link">Login Here</a>
+                            <a href="" class="btn text-danger forgotPwdBtn">Forgot Password?</a>
                             </h6>
                         </div>
                     </form>
             </div>
         </div>
  </div>
+ <?php include_once('templates/forgotModal.php');?>
  <script>
     document.body.scroll = "no";
     document.body.style.overflow = 'hidden';

@@ -1,3 +1,4 @@
+ <?php $webpage = 'allpost'?>
  <?php require_once('../resources/templates/config.php');?>
  <?php include_once(TEMPLATE_FRONT.DS.'header.php');?>  
 

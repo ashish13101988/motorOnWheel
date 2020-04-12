@@ -2,7 +2,7 @@
 
     if(isset($_POST['carName'])){
         require_once('../../resources/templates/config.php');
-
+        
         $carname = $_POST['carName'];
         isset($_POST['fromTable']) ?  $table = $_POST['fromTable'] : $table = null;
             

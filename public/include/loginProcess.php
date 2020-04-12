@@ -32,7 +32,7 @@
         $stmt->execute();
 
         $result =  $stmt->get_result();
-        print_r($result->num_rows);
+       // print_r($result->num_rows);
 
             if($result->num_rows < 1){
                 $status['error'] = "Email not found.";

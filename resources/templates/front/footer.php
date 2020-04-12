@@ -4,7 +4,7 @@
 
         <?php
                 if(isset($webpage)):
-                        if($webpage == 'index' || $webpage == 'createAds' || $webpage=='manageAds'):
+                        if($webpage == 'index' || $webpage == 'createAds' || $webpage=='manageAds' || $webpage == 'allpost'):
                                 include_once('footer-content.php');
                         endif;
                         

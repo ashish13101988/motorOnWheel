@@ -27,8 +27,8 @@
             exit;
         }
         if($userPwd !== $confrimPwd){
-             $status['error'] = "Both password should be same";
-             $status = url_encode($status);
+            $status['error'] = "Both password should be same";
+            $status = url_encode($status);
             header("location:../signup.php?status=$status");
             exit;
         } 

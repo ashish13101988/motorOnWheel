@@ -109,41 +109,35 @@ $(document).ready(function () {
         }
   
         //setting car model create ads
-        function createAdsFormAjax(carname = null, carmodel= null){
-                return $.ajax({
-                        url: 'include/carName.php',
-                        type: 'POST',
-                        data: {
-                                carName: carname,
-                                carModel: carmodel,
-                                fromTable: `cars`
-                                }
-                                 
-                });
-        }
-
+      
         $('#createAdsForm .createAdsForm').change(function () {
 
                let carname = $('select[name="vName"]').val().toLowerCase();
                let carmodel = $('select[name="vModel"]').val().toLowerCase();
-                
+               let fd = new FormData();
+               let url= 'include/carName.php';
+               fd.append('carName', carname);
+               fd.append('carModel',carmodel);
+               fd.append('fromTable','`cars`');
                if ($(this).attr('name') === 'vName') {
-                       $.when(createAdsFormAjax(carname,carmodel)).done(function(res){
+                        $.when(fetchResponse(fd,url)).done(function (res) {
+                                //conveting array into object
+                                res = {0:res};
                                 setCarModel(res);
-                       });
+                        });
                }
                if ($(this).attr('name') === 'vModel') {
-                       $.when(createAdsFormAjax(carname,carmodel)).done(function (res) {
+                        $.when(fetchResponse(fd, url)).done(function (res) {
+                                res = {0: res};
                                setCarBodyType(res);
-                       });
+                        });
                }
                
                
         });
 
 //set model into option fields
-        function setCarModel(res) {
-               
+        function setCarModel(res) {  
             let carmodel = $('.carmodel');
             $('.carmodel option').remove();
             carmodel.append(`<option value=''>Select Model</option>`);
@@ -293,6 +287,71 @@ $(document).ready(function () {
                 
         });
 
+        //forget password modal show up
+
+        $('.forgotPwdBtn').click(function(e){
+                e.preventDefault();
+                $('#forgotModal').modal({
+                        show:true,
+                        backdrop: false,
+                        keyboard: false
+                });   
+                
+        });
+
+        //forget password reset form
+        $('#resetPasswordForm').submit(function(e){
+                e.preventDefault();
+                let fd =  new FormData(this);
+                fd.append('resetSubmit', 'resetSubmit');
+                url = 'include/resetpwdProcess.php';
+                $('#resetPasswordForm button[name="resetSubmit"]').hide();
+                $('.loaderDiv').append(lodergif());
+                $.when(fetchResponse(fd, url)).done(function (res) {
+                        $('.loader').hide();
+                        $('#resetPasswordForm button[name="resetSubmit"]').show();
+                        if(res.msg == true){
+                                let msg = `<p>Password has been reset. <a href='login.php' class="btn btn-primary">Login</a></p>`;
+                                $('#resetPasswordForm').hide();
+                                $(".statusMsg").html(msg);
+                        }else{
+                               $(".statusMsg").html(simpleNoticePopup(res.msg, 'warning'));
+                        }
+                });
+        
+                
+        });
+
+        //forget password modal submit buttson
+
+        $('#forgotPwdForm').submit(function(e){
+                e.preventDefault();
+                let fd = new FormData(this);
+                url = 'include/forgotpwdProcess.php';
+                $('#forgotPwdForm').hide();
+               
+                $('#forgotModal .modal-body').append(lodergif());
+
+                $.when(fetchResponse(fd, url)).done(function(res){
+                        $('#forgotPwdForm').show();
+                        $('#forgotModal .loader').hide();
+                        if(res.msg == true){
+                                $('#forgotPwdForm')[0].reset();
+                                $('#forgotModal').modal('hide'); 
+                                $(noticePopup('Reset Link has been sent on your registered email. Please check it out ', 'success')).appendTo('body');
+                                noticeShowup(6000);
+                        }else{
+                                $('#forgotpwdMsg').html(simpleNoticePopup(res.msg, 'warning'));    
+                        }
+                        
+
+                });
+        });
+
+
+      
+        
+
         function noticePopup(msg, alertStatus) {
                 return `<div class="alert alert-${alertStatus} alert-dismissible fade show notice_popup" role="alert">
                 <strong>${msg}</strong>
@@ -310,5 +369,17 @@ $(document).ready(function () {
                         </button>
                 </div>`;
         };
+
+        function noticeShowup(dur=4000){
+                setTimeout(function () {
+                        $(".notice_popup").alert('close');
+                }, dur);
+        }
         
+        function lodergif(){
+                return `<div class="loader text-center">
+                                <img src="loaderDualball.gif">
+                                <p>please wait...</p>       
+                        </div>`;
+        }
 });//document ready function  bracket

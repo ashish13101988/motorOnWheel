@@ -91,8 +91,36 @@ function getSingleView($sql,$id){
 
 }
 
-function createToken(){
-   $token = bin2hex(openssl_random_pseudo_bytes(25));
+ function test_input($data) {
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+      return $data;
+   }
+
+function createToken($len=25){
+   $token = bin2hex(openssl_random_pseudo_bytes($len));
    return $token;
 }
 
+function userExist($email){
+   global $db;
+   $sql = "SELECT `email` FROM `users` WHERE `email` = ?";
+         $stmt = $db->prepare($sql);
+         $stmt->bind_param('s',$email);
+         $stmt->execute();
+         $result = $stmt->get_result();
+         $stmt->close();
+         if($result->num_rows > 0){
+            return true;
+         }else{
+            return false;
+         }
+}
+
+
+
+	
+function isJson($string){
+   return is_string($string) && is_array(json_decode($string, true)) && (json_last_error() == JSON_ERROR_NONE) ? true : false;
+}

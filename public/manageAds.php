@@ -1,3 +1,5 @@
+ <?php $webpage = 'manageAds'?>
+ 
  <?php require_once('../resources/templates/config.php');?>
  <?php include_once(TEMPLATE_FRONT.DS.'header.php');?>  
 
@@ -17,10 +19,6 @@
        var_dump($rows);
         echo "</pre>";
  */
-        
-    
-        
-    
 
 ?>
 
@@ -72,12 +70,7 @@ foreach($rows as $row){
                                 <span class="sr-only">Next</span>
                             </a>
 
-                         
-                        
-                        
-                           
-                        
-                       
+              
                 </div>
 
 

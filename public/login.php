@@ -45,12 +45,13 @@
                             LOGIN
                         </button>
                         <div class="mt-2">
-                           <h6>Not member yet? Sign up for free <a href="signup.php" class="ml-2  btn-link">Join Here</a></h6>
+                           <h6>Not member yet? Sign up for free <a href="signup.php" class="mx-2  btn-link">Join Here</a><a href="" class="btn text-danger forgotPwdBtn">Forgot Password?</a></h6>
                         </div>
                     </form>
             </div>
         </div>
  </div>
+ <?php include_once('templates/forgotModal.php');?>
  <script>
     document.body.scroll = "no";
     document.body.style.overflow = 'hidden';

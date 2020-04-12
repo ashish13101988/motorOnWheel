@@ -7,19 +7,20 @@ $(document).ready(function () {
         $('#submitBtn').prop('disabled', true);
        
         $.when(ajaxFormProcess(fd)).done(function (res) {
-            if(res.msg==true){
+            console.log(res);
+            if(res.msg == true){
                 let msg = 'Your Post has been uploaded'
                 $(noticePopup(msg, 'success')).appendTo('body');
                 $('#createAdsForm')[0].reset();
             }else{
-                let msg = 'Something went wrong';
-                $(noticePopup(msg, 'warning')).appendTo('body');
+                
+                $(noticePopup(res.msg, 'warning')).appendTo('body');
             }
              $('#submitBtn').text('Post Ad');
-             setTimeout(function () {
-                 $(".notice_popup").alert('close');
-                 $('#submitBtn').prop('disabled', false);
-             }, 3000);
+             $('#submitBtn').prop('disabled', false);
+            setTimeout(function () {
+                $(".notice_popup").alert('close');
+            }, 5000);
         });
     }); 
 });
