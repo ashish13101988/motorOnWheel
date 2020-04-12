@@ -13,10 +13,14 @@
           $startDate     = isset($_POST['startDate']) ? trim($_POST['startDate']) :null;
           $endDate       = isset($_POST['endDate']) ? trim($_POST['endDate']) : null;
          
-          $perPage = 4;
+          
+
+         
+
+          $perPage = 15;
           $offset = ($currentPage-1)*$perPage;
          
-          $sql = "SELECT `ads`.`id` AS 'ads_id' , `users`.`id` AS 'user_id' ,ads.*,users.* FROM ads INNER JOIN users ON `users`.`id` = `ads`.`user_id`";
+          $sql = "SELECT `ads`.`id` AS 'ads_id' ,`ads`.`created_at` AS 'adsDate',`users`.`id` AS 'user_id' ,ads.*,users.* FROM ads INNER JOIN users ON `users`.`id` = `ads`.`user_id`";
 
           //this query for total row counts
 
@@ -27,7 +31,7 @@
 
           if(!empty($startDate)){
                empty($endDate) ? $endDate = date('y-m-d') : $endDate;
-
+               
                $startDate = createTimeFormat($startDate); 
                $endDate = createTimeFormat($endDate); 
 
@@ -36,8 +40,8 @@
                     exit;
                }
                echo "<h6 class='text-center bg-secondary p-2'>Showing result <strong>$startDate</strong> to <strong>$endDate</strong></h6>";
-               $sql = "SELECT `ads`.`id` AS 'ads_id' , `users`.`id` AS 'user_id' ,ads.*,users.* FROM ads INNER JOIN users ON `users`.`id` = `ads`.`user_id` WHERE `ads`.`created_at` BETWEEN CAST('$startDate' AS DATE)
-               AND CAST('$endDate' AS DATE)";
+               $sql = "SELECT `ads`.`id` AS 'ads_id',`ads`.`created_at` AS 'adsDate',`users`.`id` AS 'user_id' ,ads.*,users.* FROM ads INNER JOIN users ON `users`.`id` = `ads`.`user_id` WHERE `ads`.`created_at` BETWEEN '$startDate'
+               AND LAST_DAY('$endDate')";
                $rowsCount = getResult($sql);
                $totalRows = count($rowsCount);
 
@@ -66,7 +70,7 @@
           }else{
                 $sql .= " LIMIT  $offset , $perPage";
           }   
-          //echo $sql;
+         // echo $sql;
     
           $rows = getResult($sql);
      
@@ -118,7 +122,7 @@
                                    }
                               ?>
                          <td data-status="<?=$row['ads_id']?>" class="status <?=$bgColor?> text-light" ><?=ucwords($row['status']);?></td>
-                         <td><?=dateCreate($row['created_at'])?></td>
+                         <td><?=dateCreate($row['adsDate']);?></td>
                          
                          <td><a href="#" class="btn btn-primary openSingleView" data-ad-id="<?=$row['ads_id']?>">View</a></td>
                          

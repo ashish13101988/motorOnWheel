@@ -5,14 +5,14 @@
     
     $baseUrl = 'ads.php';
     $orderBy = "ORDER BY (CASE WHEN `ads`.`status` = 'pending' THEN 1 ELSE `ads`.`status` END)";
-    $perPage = 4;
+    $perPage = 15;
 
     $paginationSql = "SELECT COUNT(id) FROM `ads`";
     $paginationResult = getResult($paginationSql);
    
     $totalRows = $paginationResult[0]['COUNT(id)'];
 
-    $sql = "SELECT `ads`.`id` AS 'ads_id' , `users`.`id` AS 'user_id' ,ads.*,users.* FROM ads INNER JOIN users ON `users`.`id` = `ads`.`user_id` $orderBy LIMIT $perPage";
+    $sql = "SELECT `ads`.`id` AS 'ads_id' ,`ads`.`created_at` AS 'adsDate',`users`.`id` AS 'user_id' ,ads.*,users.* FROM ads INNER JOIN users ON `users`.`id` = `ads`.`user_id` $orderBy LIMIT $perPage";
 
     $rows = getResult($sql);
     
@@ -80,8 +80,8 @@
                             <th>
                                 <select name="sortDate"  class="form-control-sm tsorter">
                                     <option value="">Uploaded</option>
-                                    <option value="DESC">Earliest</option>
-                                    <option value="ASC">Latest</option>
+                                    <option value="DESC">Latest</option>
+                                    <option value="ASC">Older</option>
                                     
                                 </select>
                             </th>
@@ -142,7 +142,8 @@
                             }
                         ?>
                                 <td data-status="<?=$row['ads_id']?>" class="status <?=$bgColor?> text-light" ><?=ucwords($row['status']);?></td>
-                                <td><?=dateCreate($row['created_at'])?></td>
+
+                                <td><?=dateCreate($row['adsDate']);?></td>
                                 
                                 <td><a href="#" class="btn btn-primary openSingleView" data-ad-id="<?=$row['ads_id']?>">View</a></td>
                                 
