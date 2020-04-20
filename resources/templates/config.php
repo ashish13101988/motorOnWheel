@@ -3,6 +3,7 @@
     ob_start();
     session_start();
 
+    defined('ROOT_PATH')? NULL : define('ROOT_PATH',$_SERVER['DOCUMENT_ROOT']);
     defined('DS') ? NULL :define('DS',DIRECTORY_SEPARATOR);
     defined('TEMPLATE_FRONT') ? NULL :define('TEMPLATE_FRONT',__DIR__.DS."front");
     defined('TEMPLATE_BACK') ? NULL :define('TEMPLATE_BACK',__DIR__.DS."back");

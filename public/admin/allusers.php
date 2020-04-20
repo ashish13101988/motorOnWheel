@@ -9,7 +9,7 @@
 
 
 
-    $paginationSql = "SELECT COUNT(id) FROM `ads`";
+    $paginationSql = "SELECT COUNT(id) FROM `users`";
     $paginationResult = getResult($paginationSql);
    
     $totalRows = $paginationResult[0]['COUNT(id)'];

@@ -14,8 +14,8 @@
      if(isset($_POST['approveSubmitForm']) && isset($_POST['changeStatus'])):
         $adid = $_POST['adid'];
         if($_POST['changeStatus']=='Accept'):
-           $status = approveStatus('approved', $adid);
-            if($status == 1):
+           $approveStatus = approveStatus('approved', $adid);
+            if($approveStatus == 1):
                 $status['msg'] = 'application approved';
                 echo  json_encode($status);
                 exit;
@@ -26,8 +26,8 @@
             endif;
         endif;
         if($_POST['changeStatus']=='Reject'):
-           $status = approveStatus('rejected', $adid);
-            if($status == 1):
+           $approveStatus = approveStatus('rejected', $adid);
+            if($approveStatus == 1):
                 $status['msg'] = 'application rejected';
                 echo  json_encode($status);
                 exit;

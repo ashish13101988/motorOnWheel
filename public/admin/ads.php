@@ -4,7 +4,7 @@
 <?php
     
     $baseUrl = 'ads.php';
-    $orderBy = "ORDER BY (CASE WHEN `ads`.`status` = 'pending' THEN 1 ELSE `ads`.`status` END)";
+    $orderBy = "ORDER BY (CASE WHEN `ads`.`status` = 'pending' THEN 1 ELSE `ads`.`status` END), ads.created_at DESC";
     $perPage = 15;
 
     $paginationSql = "SELECT COUNT(id) FROM `ads`";
@@ -13,7 +13,7 @@
     $totalRows = $paginationResult[0]['COUNT(id)'];
 
     $sql = "SELECT `ads`.`id` AS 'ads_id' ,`ads`.`created_at` AS 'adsDate',`users`.`id` AS 'user_id' ,ads.*,users.* FROM ads INNER JOIN users ON `users`.`id` = `ads`.`user_id` $orderBy LIMIT $perPage";
-
+//echo $sql;
     $rows = getResult($sql);
     
     $counter = 0;

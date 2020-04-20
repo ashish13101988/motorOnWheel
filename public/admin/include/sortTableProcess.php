@@ -14,14 +14,11 @@
           $endDate       = isset($_POST['endDate']) ? trim($_POST['endDate']) : null;
          
           
-
-         
-
           $perPage = 15;
           $offset = ($currentPage-1)*$perPage;
          
-          $sql = "SELECT `ads`.`id` AS 'ads_id' ,`ads`.`created_at` AS 'adsDate',`users`.`id` AS 'user_id' ,ads.*,users.* FROM ads INNER JOIN users ON `users`.`id` = `ads`.`user_id`";
-
+          $sql = "SELECT `ads`.`id` AS 'ads_id' ,`ads`.`created_at` AS 'adsDate',`users`.`id` AS 'user_id' ,ads.*,users.* FROM ads INNER JOIN users ON `users`.`id` = `ads`.`user_id`" ;
+//echo $sql;
           //this query for total row counts
 
           $rowsCount = getResult($sql);
@@ -64,13 +61,14 @@
           }
           
          
-          if(count($conditions) > 0){             
+          if(count($conditions) > 0){   
+               
                $sql .= " ORDER BY " . implode(' , ', $conditions )." LIMIT  $offset , $perPage";
-                     
+                      
           }else{
-                $sql .= " LIMIT  $offset , $perPage";
+               $sql .= " ORDER BY (CASE WHEN `ads`.`status` = 'pending' THEN 1 ELSE `ads`.`status` END), ads.created_at DESC LIMIT  $offset , $perPage";
           }   
-         // echo $sql;
+         
     
           $rows = getResult($sql);
      

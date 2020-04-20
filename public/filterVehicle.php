@@ -1,5 +1,5 @@
 <?php
-
+$webpage = 'filterVehicle';
 require_once('../resources/templates/config.php');
    $submitted = false;
 

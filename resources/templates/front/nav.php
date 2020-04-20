@@ -70,7 +70,7 @@
                                     <i class="fas fa-sign-out-alt mr-2"></i> 
                                     Logout
                                 </a>
-                                <a class="dropdown-item" href="userDetails.php?action=mywishlist">
+                                <a class="dropdown-item" href="wishlist.php">
                                     <i class="fas fa-heart mr-2"></i>
                                     My wishlist
                                     <span class="badge badge-dark"><?=$totalWishlist[0]['COUNT(id)']?></span>
@@ -78,6 +78,10 @@
                                 <a class="dropdown-item" href="userDetails.php">
                                     <i class="fas fa-user-circle mr-2"></i>
                                     Profile
+                                </a>
+                                <a class="dropdown-item" href="changePassword.php">
+                                    <i class="fas fa-key mr-2"></i>
+                                    Change Password
                                 </a>
                             </div>
                         </div>

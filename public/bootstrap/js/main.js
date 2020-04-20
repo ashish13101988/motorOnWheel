@@ -1,25 +1,20 @@
-/* 
-let carSearch = document.querySelector('#carSearch');
-let filterForm = document.querySelectorAll('.home-filter-div');
-
-filterForm[0].addEventListener('click', e => {
-       
-    if (e.target.classList.contains('carSearchBtn')){
-        let carSearchBtn = document.querySelectorAll('.carSearchBtn'); 
-        for (i = 0; i < carSearchBtn.length; i++){
-           carSearchBtn[i].classList.remove('btn-active');
-           e.target.classList.add('btn-active');   
-        }
-        carSearch.value = e.target.innerText.toLowerCase();
-    }
-});
-
- */
 
  $(document).ready(function(){
+
+     function basename() {
+         let filepath = $(location).attr('pathname');
+         basname = filepath.replace(/\\/g, '/').replace(/.*\//, '');
+         return basname;
+     }
+
     $('.profileUpdateForm').submit(function(e){
         e.preventDefault();
-        let url = 'include/profileUpdate.php';
+        if (basename() == 'userDetails.php') {
+            url = 'admin/include/profileUpdate.php';
+        } else if (basename() == 'profile.php') {
+            url = 'include/profileUpdate.php';
+        }
+       
         let fd = new FormData(this);
         $.when(updateProfile(fd,url)).done(function(res){
             if(res.status == 'success'){
@@ -34,7 +29,13 @@ filterForm[0].addEventListener('click', e => {
 
      $('.profileUpdatePicForm').submit(function(e){
         e.preventDefault();
-        let url = 'include/profileUpdate.php';
+         if (basename() == 'userdetails.php') {
+             url = 'admin/include/profileUpdate.php';
+         } else if (basename() == 'profile.php') {
+             url = 'include/profileUpdate.php';
+         }
+        
+       
         let fd = new FormData(this);
         $('.profileUpdatePicForm button').text('uploading...');
         $.when(updateProfile(fd,url)).done(function (res) {
@@ -81,7 +82,13 @@ filterForm[0].addEventListener('click', e => {
     $('.changePwdForm').submit(function(e){
         e.preventDefault();
         let fd = new FormData(this);
-        let url = 'include/changePwdProcess.php';
+        console.log(basename());
+        if (basename() == 'changePassword.php') {
+            url = 'admin/include/changePwdProcess.php';
+        } else if (basename() == 'cPwd.php') {
+            url = 'include/changePwdProcess.php';
+        }
+        
         $('.changePwdForm [name="cPwdSubmit"]').addClass('disabled');
         $('.changePwdForm [name="cPwdSubmit"]').text('Please Wait...');
         $.when(updateProfile(fd,url)).done(function(res){

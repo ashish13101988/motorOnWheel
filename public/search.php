@@ -28,6 +28,32 @@
         <div class="ads p-3 mt-4">
         <div class="row">
             <div class="col-md-6"> 
+              <div class="wishlist_heart">
+                <a href="#" data-ad-value="<?php echo $row['id']?>" class="addWishlist" title="wishlist">
+
+                    <?php
+                        if(isset($_SESSION['id'])){
+                            $loggedId = $_SESSION['id'];
+                            $wishQuery =  "SELECT `ads_id` FROM `wishlist` WHERE `ads_id` = $adId  AND `user_id`= $loggedId";
+
+                            $wishlist = getResult($wishQuery);
+                            if(count($wishlist)>0){ 
+                                    $wishlist[0]['ads_id'];
+                                    ?>
+                                <i class="fas fa-heart fa-2x"></i>
+                            <?php }else{?>
+                                    <i class="fas fa-heart fa-2x text-white"></i>
+                            <?php }
+                        
+                        }else{?>
+                            <i class="fas fa-heart fa-2x text-white"></i>      
+                      <?php }?> 
+            
+                    
+                    <!--  -->
+                    
+                  </a>  
+                </div> 
 
             
                 <div id="sliderm<?=$row['id']?>" class="carousel slide" data-ride="carousel">
@@ -101,30 +127,11 @@
                     </tr>
 
                 </table>
-                                   
-                <button class="btn viewData btn-info" data-ad-value="<?php echo $row['id']?>">View</button>
-
-                    <?php
-                        if(isset($_SESSION['id'])){
-                            $loggedId = $_SESSION['id'];
-                            $wishQuery =  "SELECT `ads_id` FROM `wishlist` WHERE `ads_id` = $adId  AND `user_id`= $loggedId";
-
-                            $wishlist = getResult($wishQuery);
-                               if(count($wishlist)>0){ 
-                                    $wishlist[0]['ads_id'];
-                                    ?>
-                                   <button class="btn btn-secondary addWishlist" data-ad-value="<?php echo $row['id']?>">Wishlisted</button>
-                             <?php }else{?>
-                                    <button class="btn btn-primary addWishlist" data-ad-value="<?php echo $row['id']?>">Wishlist</button>
-                             <?php }
-                        
-                        }else{?>
-                                    <button class="btn btn-primary addWishlist" data-ad-value="<?php echo $row['id']?>">Wishlist</button>
-                             <?php }
+                     <a href="vehicle.php?adid=<?php echo $row['id'];?>" class="btn btn-primary">View</a>                           
                     
-                    ?>
 
-                    <button class="btn btn-warning enquiryBtn" data-ad-value="<?php echo $row['id']?>">Enquiry</button>
+
+                    <button class="btn btn-warning sellerEnq" data-ad-value="<?php echo $row['user_id']?>">Enquiry</button> 
 
 
                 
@@ -220,52 +227,5 @@
 </div>
 
 
-
-<div class="modal fade" id="enquiryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Contact Us</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-        <input type="hidden" value=""  class="advalue" name="adId">
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Your Name:</label>
-            <input type="text" class="form-control" id="recipient-name" name="name">
-          </div>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Your Email:</label>
-            <input type="email" class="form-control" id="recipient-name" name="email">
-          </div>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Your Phone:</label>
-            <input type="text" class="form-control" id="recipient-name" name="contact">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text" name="message"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-        <button type="submit" class="btn btn-primary" name="enqSubmit">Send message</button>
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
     <!-- footer -->
-     <?php require_once(TEMPLATE_FRONT.DS.'footer.php');?>
+<?php require_once(TEMPLATE_FRONT.DS.'footer.php');?>

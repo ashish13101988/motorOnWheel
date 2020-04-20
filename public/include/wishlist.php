@@ -1,7 +1,7 @@
 <?php
-
+    require_once('../../resources/templates/config.php');
     if(isset($_POST['wishlist'])){
-        require_once('../../resources/templates/config.php');
+        
         if(!isset($_SESSION['id'])){
             $response['login'] = false;
             echo json_encode($response);
@@ -40,6 +40,16 @@
         }
         
        
+    }elseif(isset($_POST['wishlistRemove'])){
+            $sql = "DELETE FROM `wishlist` WHERE id = ?";
+            $stmt = $db->prepare($sql);
+            $stmt->bind_param('i',$_POST['wishlistRemove']);
+            if($stmt->execute()){
+                $response['status'] = "removed";
+                echo json_encode($response);
+                exit;
+            }
+            
     }
 
 ?>

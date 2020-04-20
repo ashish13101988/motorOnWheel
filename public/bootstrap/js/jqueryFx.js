@@ -1,6 +1,12 @@
 $(document).ready(function () {
         let carNameUrl = 'include/carName.php';
         let carCountUrl = 'filterVehicle.php';
+
+         //to capitalize first charc of string
+         String.prototype.capitalize = function () {
+                 return this.charAt(0).toUpperCase() + this.slice(1);
+         }
+        
        
        /* Scroll to top when arrow up clicked BEGIN */
         $(window).scroll(function () {
@@ -234,33 +240,72 @@ $(document).ready(function () {
 //wishlist function
 
         $('.addWishlist').click(function(e){
+                e.preventDefault();
 
-                let adId = $(e.target).data('ad-value');
-                $.ajax({
-                        url:'include/wishlist.php',
-                        type:'POST',
-                        dataType:'JSON',
-                        data:{wishlist:adId},
-                        success:function(response){
-                                if(response.login == false){
-                                        location.href = "login.php";
-                                } else if (response.status == 'added') {
-                                        $(e.target).text('Wishlisted');
-                                } else if (response.status == 'removed') {
-                                        $(e.target).text('Add To Wishlist');
-                                }
+                let adId = $(this).data('ad-value');
+                let fd = new FormData();
+              
+                fd.append('wishlist', adId);
+                $.when(fetchResponse(fd, 'include/wishlist.php')).done(function(response){
+                        if(response.login == false){
+                                location.href = "login.php";
+                        } else if (response.status == 'added') {
+                                
+                                $(e.target).parent().html(`<i class="fas fa-heart fa-2x"></i>`);
+                        } else if (response.status == 'removed') {
+                                $(e.target).parent().html(` <i class="fas fa-heart fa-2x text-white"></i>`);
+                        }
 
-                               // console.log(response.status);
+                        // console.log(response.status);
+                });
+               
+        });
+        
+        $('.wishlist__remove').click(function(e){
+                e.preventDefault();
+                let adId = $(this).data('ad-value');
+                //alert(adId);
+                let fd = new FormData();
+                fd.append('wishlistRemove', adId);
+                $.when(fetchResponse(fd, 'include/wishlist.php')).done(function (response){
+                        if (response.status == 'removed') {
+                                $(e.target).parent().parent().remove();
                         }
                 });
         });
+
+  //seller enquiry
+  
+        $('.sellerEnq').click(function(){
+                let userId = $(this).data('ad-value');
+                let fd = new FormData();
+                fd.append('sellerEnq', userId);
+                $.when(fetchResponse(fd, 'include/enquiryProcess.php')).done(function(res){
+                        
+                        let contact = res.user.phone
+                        if (contact =='' || contact.length < 0){
+                                contact = 'Not mentioned';
+                        }
+                        
+                        let html = enqModalBody(res.user.name,contact , res.user.email);
+                        $('#SellerenquiryModal .modal-title').html('Contact to Seller');
+                        $('#SellerenquiryModal .modal-body').html(html);
+                        $('#SellerenquiryModal').modal('show');
+                 });
+        });
+        function enqModalBody(name, phone,email){
+                return `<h5>Seller Name  : ${name.capitalize()}</h5>
+                        <h5>Seller Send mail : <a href="mailto:${email}">${email}</a></h5>
+                        <h5> Seller Contact: <a href = "tel:${phone}">${phone}</a></h5 >
+                `;
+
+        }
 
 
  //enquiry modal
  
         $('.enquiryBtn').click(function(e){
                 let adId =  $(e.target).data('ad-value');
-               
                 $('#FooterenquiryModal input[name="adId"]').val(adId);
                 $('#FooterenquiryModal').modal('show');
         });

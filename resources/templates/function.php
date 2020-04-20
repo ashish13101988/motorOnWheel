@@ -1,7 +1,8 @@
 <?php
 spl_autoload_register(function ($className) {
-    include($_SERVER['DOCUMENT_ROOT']."MOTORONWHEELS/classes/".$className.".php");
+    include(ROOT_PATH."/MOTORONWHEELS/classes/".$className.".php");
 });
+ 
 
 function url_encode($str){
    $str = serialize($str);
@@ -89,6 +90,19 @@ function getSingleView($sql,$id){
    
 
 
+}
+
+
+function fetchImgs($id){
+   global  $db;
+   $sql = "SELECT imgname FROM `adimg` WHERE  ads_id = ?";
+   $stmt = $db->prepare($sql);
+   $stmt->bind_param('i',$id);
+   $stmt->execute();
+   $result =  $stmt->get_result();
+   $stmt->close();
+   $rows =  $result->fetch_all(MYSQLI_ASSOC);
+   return $rows;
 }
 
  function test_input($data) {
