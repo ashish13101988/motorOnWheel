@@ -34,7 +34,7 @@
                     </div>
                 </li>
                 <li class="nav-item  mr-3 <?php if($url == 'help.php'){echo 'active';}?>">
-                    <a class="nav-link" href="#">Help</a>
+                    <a class="nav-link enquiryBtn" href="#">Help</a>
                 </li>
                 <?php
                     if(isset($_SESSION['id']) && $_SESSION['role']=='admin'):

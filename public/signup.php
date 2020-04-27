@@ -42,13 +42,13 @@
 
                         <div class="form-group">
                            
-                            <input type="text" class="form-control" placeholder="Your Full Name *" name="userName" 
+                            <input type="text" class="form-control" placeholder="Your name *" name="userName" 
                             value="<?= $status['name'] ?? $status['name'] ?? null; ?>" 
                             required>
                            
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Enter email *" name="userEmail" value="<?= $status['email'] ?? $status['email'] ?? null ;?>" required>  
+                            <input type="email" class="form-control" placeholder="Email *" name="userEmail" value="<?= $status['email'] ?? $status['email'] ?? null ;?>" required>  
                         </div>
                         <div class="form-group">
                             
@@ -56,7 +56,7 @@
                         </div>
                         <div class="form-group">
                             
-                            <input type="password" class="form-control"  placeholder="Confrim Password *" name="confirmPwd" required>
+                            <input type="password" class="form-control"  placeholder="Confirm password *" name="confirmPwd" required>
                         </div>
                         <!-- <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="exampleCheck1">

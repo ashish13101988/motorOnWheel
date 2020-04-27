@@ -32,7 +32,7 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Enter email *" name="email"
+                            <input type="email" class="form-control" placeholder="Email *" name="email"
                             value="<?= $status['email'] ?? $status['email'] ?? null ;?>" required>  
                         </div>
 

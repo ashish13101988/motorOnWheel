@@ -36,7 +36,7 @@
                     <div class="form-group">
                       
                       <select class="form-control carname homefilter" name="carName"> 
-                        <option value="" selected>Select Any</option>
+                        <option value="" selected>Make</option>
                           <?php
                             foreach($rows as $row):
                               echo "<option value='$row[0]'>".ucfirst($row[0])."</option>";  
@@ -49,7 +49,7 @@
                   <div class="col-md-4 col-6">
                     <div class="form-group">
                         <select class="form-control carmodel homefilter" name="carModel">
-                           <option value="">Choose Model</option>
+                           <option value="">Model</option>
                         </select>
                     </div>
                   </div> 
@@ -57,7 +57,7 @@
                   <div class="col-md-4 col-6">
                     <div class="form-group">
                       <select class="form-control bodyType homefilter" name="cBodyType">
-                          <option value="">Select Body Type</option>
+                          <option value="">Body Type</option>
                           <?php
                             foreach($bodyTypeRow as $row):
                                   echo "<option value='$row[0]'>".ucfirst($row[0])."</option>";     
@@ -70,7 +70,7 @@
                   <div class="col-md-2 col-6">
                     <div class="form-group">
                        <select class="form-control homefilter" name="minPrice">
-                        <option value="">No Min</option>
+                        <option value="">Price Min</option>
                         <?php
                           foreach($price as $minPrice){
                             echo "<option value=$minPrice>".number_format($minPrice)."</option>";
@@ -83,7 +83,7 @@
                   <div class="col-md-2 col-6">
                     <div class="form-group"> 
                        <select class="form-control homefilter" name="maxPrice">
-                        <option value="">No Max</option>
+                        <option value="">Price Max</option>
                         <?php
                           foreach($price as $minPrice){
                             echo "<option value=$minPrice>".number_format($minPrice)."</option>";
@@ -97,7 +97,7 @@
                     <div class="form-group">
                       
                       <select class="form-control homefilter" name="location">
-                        <option value="">Select Location</option>
+                        <option value="">Location</option>
                         <?php showOptions($states);?>
                       </select>
                     </div>
